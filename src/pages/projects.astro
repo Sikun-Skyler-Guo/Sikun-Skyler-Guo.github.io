@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { projects } from '../data/projects';
+---
+
+<Layout title="Projects" description="Selected projects and research systems by Sikun Guo.">
+  <SectionHeading
+    eyebrow="Projects"
+    title="Research projects and systems"
+    intro="This page highlights the artifacts and system-building layer behind the papers: benchmarks, method lines, and workflow-oriented research tools."
+  />
+
+  <div class="mb-10 rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-6 sm:p-7">
+    <p class="text-sm leading-7 text-stone-700">
+      I do not think of research output as papers alone. The more interesting question is often what infrastructure, benchmark, workflow, or evaluation layer had to exist for the research to become convincing in the first place.
+    </p>
+  </div>
+
+  <div class="space-y-6">
+    {projects.map((project) => (
+      <Card title={project.name} subtitle={`${project.category} · ${project.period}`}>
+        <p class="text-base leading-8 text-stone-700">{project.description}</p>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-stone-700">
+          {project.details.map((detail) => (
+            <li>{detail}</li>
+          ))}
+        </ul>
+      </Card>
+    ))}
+  </div>
+</Layout>

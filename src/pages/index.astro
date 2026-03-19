@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import OpenClawDiagram from '../components/OpenClawDiagram.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { cvData, homepage, profile } from '../data/site';
+import { featuredPublications } from '../data/publications';
+import { news } from '../data/news';
+
+const industryExperience = cvData.experience.find((item) => item.org === 'Autoscience Institute');
+---
+
+<Layout title="Home" description={homepage.heroBody}>
+  <section class="grid gap-8 lg:grid-cols-[1.55fr_0.92fr] lg:items-start">
+    <div>
+      <p class="text-[11px] uppercase tracking-[0.34em] text-stone-500">{homepage.heroEyebrow}</p>
+      <h1 class="mt-5 max-w-5xl text-[2.9rem] text-stone-950 sm:text-[3.4rem] lg:text-[3.8rem]">{homepage.heroTitle}</h1>
+      <p class="mt-7 max-w-3xl text-lg leading-8 text-stone-700">{homepage.heroBody}</p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="/publications" class="button-primary rounded-full border px-5 py-3 text-sm font-medium shadow-[0_14px_40px_-22px_rgba(15,118,110,0.45)] transition hover:translate-y-[-1px]">Browse publications</a>
+        <a href="/research" class="button-primary rounded-full border px-5 py-3 text-sm font-medium shadow-[0_14px_40px_-22px_rgba(15,118,110,0.45)] transition hover:translate-y-[-1px]">Read research agenda</a>
+        <a href={profile.cvHref} class="button-primary rounded-full border px-5 py-3 text-sm font-medium shadow-[0_14px_40px_-22px_rgba(15,118,110,0.45)] transition hover:translate-y-[-1px]">Download CV</a>
+      </div>
+    </div>
+
+    <Card title="At a glance" subtitle="Current position, research agenda, and recent work">
+      <dl class="space-y-5 text-sm text-stone-700">
+        <div>
+          <dt class="font-medium text-stone-900">Affiliation</dt>
+          <dd class="mt-1">{profile.affiliation}</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Advisor</dt>
+          <dd class="mt-1"><a href={profile.advisorUrl} target="_blank" rel="noreferrer" class="underline decoration-stone-300 underline-offset-4 hover:decoration-[color:var(--accent)] hover:text-[color:var(--accent-strong)]">{profile.advisorName}</a></dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Research areas</dt>
+          <dd class="mt-2 space-y-1.5 text-sm leading-7 text-stone-700">
+            {profile.researchAreas.map((area) => (
+              <p>{area}</p>
+            ))}
+          </dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Recent work</dt>
+          <dd class="mt-2 text-sm leading-7 text-stone-600">{profile.recentWork.join(' · ')}</dd>
+        </div>
+      </dl>
+    </Card>
+  </section>
+
+  <section class="mt-18 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+    <div>
+      <SectionHeading
+        eyebrow="Research agenda"
+        title={homepage.agendaTitle}
+        intro={homepage.agendaIntro}
+      />
+      <div class="grid gap-5 md:grid-cols-2">
+        <Card compact title="Parametric knowledge optimization">
+          <p class="text-sm leading-7 text-stone-700">How can large language models make better scientific use of the knowledge already encoded in their parameters?</p>
+        </Card>
+        <Card compact title="Inference-time learning">
+          <p class="text-sm leading-7 text-stone-700">How far can test-time optimization improve ideation, critique, and reasoning quality without changing base-model weights?</p>
+        </Card>
+        <Card compact title="Structured scientific knowledge">
+          <p class="text-sm leading-7 text-stone-700">How should graph structure, evolving concepts, and scientific relations be represented so model outputs become more grounded and useful?</p>
+        </Card>
+        <Card compact title="Evaluation for scientific reasoning">
+          <p class="text-sm leading-7 text-stone-700">What makes model-generated ideas, hypotheses, and scientific claims actually trustworthy, checkable, and worth a researcher’s time?</p>
+        </Card>
+      </div>
+    </div>
+
+    <div class="rounded-[1.1rem] border border-[var(--border)] bg-white/78 p-6">
+      <p class="text-[11px] uppercase tracking-[0.32em] text-stone-500">Short bio</p>
+      <p class="mt-4 text-base leading-8 text-stone-700">{profile.intro}</p>
+    </div>
+  </section>
+
+  <section class="mt-22">
+    <SectionHeading eyebrow="Selected publications" title="Recent papers" intro="A representative slice of the research program, spanning benchmark design, inference-time learning, scientific reasoning evaluation, and graph-based discovery." />
+    <div class="space-y-5">
+      {featuredPublications.map((paper) => (
+        <PublicationCard paper={paper} featured />
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-22 grid gap-8 lg:grid-cols-2">
+    <Card title="Industry experience" subtitle="Autoscience Institute · Summer 2025">
+      <p class="text-base leading-8 text-stone-700">{industryExperience?.bullets?.[0]}</p>
+      <p class="mt-4 text-sm leading-7 text-stone-600">This internship reflects the applied side of my work: turning model-centric research ideas into practical scientific-evaluation systems.</p>
+    </Card>
+
+    <Card title="Community service" subtitle="Scholarly reviewing and field participation">
+      <p class="text-base leading-8 text-stone-700">{cvData.service[0]}</p>
+      <p class="mt-4 text-sm leading-7 text-stone-600">Service matters to me because it sharpens taste, exposes emerging directions early, and keeps me engaged with the standards by which the field evaluates new work.</p>
+    </Card>
+  </section>
+
+  <section class="mt-22">
+    <SectionHeading eyebrow="Systems" title={homepage.openclawTitle} intro={homepage.openclawBody} />
+    <div class="mb-6 grid gap-5 md:grid-cols-3">
+      <Card compact title="Departmentalization">
+        <p class="text-sm leading-7 text-stone-700">My system is designed around specialized departments rather than a single generalist assistant. Research, coding, job-hunting, and other roles can be separated, coordinated, and supervised with explicit boundaries.</p>
+      </Card>
+      <Card compact title="Layered memory">
+        <p class="text-sm leading-7 text-stone-700">The memory system is deliberately externalized across daily notes, curated long-term memory, skills, docs, and workspace files so that context survives session resets and remains inspectable by both humans and agents.</p>
+      </Card>
+      <Card compact title="Self-evolution">
+        <p class="text-sm leading-7 text-stone-700">The operating system learns from user–agent interaction and from the outcomes of agent–agent collaboration. By writing those lessons back into prompts, skills, docs, and workflows, my system behaves much closer to an in-context reinforcement-learning loop than to a static agent shell.</p>
+      </Card>
+    </div>
+    <OpenClawDiagram />
+  </section>
+
+  <section class="mt-22 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <Card title={homepage.visionTitle}>
+      <p class="text-base leading-8 text-stone-700">{homepage.visionBody}</p>
+    </Card>
+
+    <div>
+      <SectionHeading eyebrow="Recent updates" title="Selected updates" />
+      <div class="space-y-3 rounded-[1.1rem] border border-[var(--border)] bg-white/78 p-5">
+        {news.map((item) => (
+          <div class="flex gap-4 border-b border-[var(--border)] pb-3 text-sm text-stone-700 last:border-0">
+            <span class="w-12 shrink-0 font-medium text-stone-500">{item.date}</span>
+            <p>{item.title}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

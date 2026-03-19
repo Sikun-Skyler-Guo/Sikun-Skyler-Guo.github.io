@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<Layout title="Research" description="Research agenda and current directions for Sikun Guo.">
+  <SectionHeading
+    eyebrow="Research"
+    title="Research agenda"
+    intro="I study the gap between what foundation models appear to know and what they can reliably use. Large language models absorb substantial knowledge during training, but turning that latent knowledge into grounded scientific reasoning remains difficult. My work focuses on parametric knowledge optimization, inference-time learning, graph-based scientific modeling, and AI for Science."
+  />
+
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+    <Card compact title="Parametric knowledge optimization">
+      <p class="text-sm leading-7 text-stone-700">How can models better activate and refine the knowledge already encoded in their parameters for scientific reasoning and discovery?</p>
+    </Card>
+    <Card compact title="Inference-time learning">
+      <p class="text-sm leading-7 text-stone-700">What kinds of optimization, search, or adversarial procedures can improve reasoning and ideation quality at test time?</p>
+    </Card>
+    <Card compact title="Graph neural networks and structure">
+      <p class="text-sm leading-7 text-stone-700">How should structured scientific relations, graph evolution, and concept dynamics be represented for discovery tasks?</p>
+    </Card>
+    <Card compact title="AI for Science">
+      <p class="text-sm leading-7 text-stone-700">How can models generate, critique, and evaluate scientific ideas and hypotheses in ways that are actually useful to researchers?</p>
+    </Card>
+  </div>
+
+  <section class="mt-18 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <Card title="How I frame the problem space">
+      <div class="space-y-4 text-base leading-8 text-stone-700">
+        <p>
+          The main question running through my work is how to make parametric knowledge more usable. In many scientific settings, a model may already contain substantial relevant knowledge, yet still fail to deploy it when forming, refining, or evaluating an idea.
+        </p>
+        <p>
+          That perspective pushes me toward method design, but also toward the surrounding infrastructure: benchmarks, inference-time control, truthfulness evaluation, and workflow tools that make model-generated scientific ideas easier to inspect and improve.
+        </p>
+        <p>
+          In the long run, I am interested in autonomous AI research systems. In the short run, I care about sharper questions: what a model knows, how well it can use that knowledge, and what kinds of system design make that knowledge more useful for real scientific workflows.
+        </p>
+      </div>
+    </Card>
+
+    <Card title="Current directions" subtitle="Representative threads in the agenda">
+      <ul class="space-y-3 text-sm leading-7 text-stone-700">
+        <li class="border-b border-[var(--border)] pb-3">Research ideation and hypothesis generation under explicit evaluation.</li>
+        <li class="border-b border-[var(--border)] pb-3">Inference-time optimization for improving scientific reasoning and idea quality.</li>
+        <li class="border-b border-[var(--border)] pb-3">Graph-based modeling of evolving scientific concepts and relationships.</li>
+        <li class="pb-1">Truthfulness, hallucination analysis, and reliability in model-generated scientific claims.</li>
+      </ul>
+    </Card>
+  </section>
+</Layout>

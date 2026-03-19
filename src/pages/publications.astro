@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { publications } from '../data/publications';
+
+const groupedByYear = Object.groupBy(publications, (paper) => String(paper.year));
+const years = Object.keys(groupedByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title="Publications" description="Publications and manuscripts by Sikun Guo.">
+  <SectionHeading
+    eyebrow="Publications"
+    title="All publications"
+    intro="Publications are listed in reverse chronological order. This page includes both first-author and collaborative work because the research agenda is broader than author position alone."
+  />
+
+  <div class="space-y-12">
+    {years.map((year) => (
+      <section>
+        <div class="mb-5 flex items-center gap-4">
+          <h2 class="text-2xl text-stone-950 sm:text-3xl">{year}</h2>
+          <div class="h-px flex-1 bg-[var(--border)]"></div>
+        </div>
+        <div class="space-y-4">
+          {groupedByYear[year]?.map((paper) => (
+            <PublicationCard paper={paper} featured={Boolean(paper.figureSrc)} />
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</Layout>
