@@ -1,0 +1,354 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<Layout
+  title="Traffic verification"
+  description="Private verification page for confirming human traffic, network conditions, and analytics reachability."
+  noindex
+>
+  <SectionHeading
+    eyebrow="Traffic verification"
+    title="Verify a visit from a specific network"
+    intro="This private diagnostic page is for validating whether a real human visit, especially from WeChat or a China-based network, is reaching the site and producing trustworthy analytics signals."
+  />
+
+  <section class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+    <Card title="How to use it" subtitle="Best for targeted China / WeChat checks">
+      <ol class="space-y-3 text-sm leading-7 text-stone-700">
+        <li class="border-b border-[var(--border)] pb-3">Open this page with a unique <span class="font-medium text-stone-900">probe</span> id in the URL, or let the page generate one for you.</li>
+        <li class="border-b border-[var(--border)] pb-3">Share that exact link with the tester or open it inside the target environment, such as WeChat, mobile Safari, or a mainland browser.</li>
+        <li class="border-b border-[var(--border)] pb-3">Ask the tester to tap <span class="font-medium text-stone-900">Confirm human visit</span>. That gives a much cleaner signal than a passive preview request.</li>
+        <li>Compare the probe id, referrer, language, timezone, and GoatCounter location afterwards. If the link shows strong China-side signals but GoatCounter still says United States, the traffic is likely exiting through an overseas gateway or safety relay.</li>
+      </ol>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button id="copy-probe-link" type="button" class="button-pill button-primary">Copy shareable link</button>
+        <button id="fresh-probe-link" type="button" class="button-pill button-secondary">Open fresh probe</button>
+      </div>
+    </Card>
+
+    <Card title="Live status" subtitle="What this browser is telling us right now">
+      <div class="space-y-4 text-sm text-stone-700">
+        <div class="rounded-2xl border border-[var(--border)] bg-[color:var(--surface-strong)] px-4 py-3">
+          <p class="text-[11px] uppercase tracking-[0.28em] text-stone-500">Analytics readiness</p>
+          <p id="analytics-status" class="mt-2 text-base font-medium text-stone-900">Checking whether GoatCounter is available…</p>
+          <p id="analytics-detail" class="mt-2 leading-7 text-stone-600">If the local analytics script or downstream counter endpoint is blocked, this page will tell us before we misread the location data.</p>
+        </div>
+
+        <div class="rounded-2xl border border-[var(--border)] bg-[color:var(--surface-strong)] px-4 py-3">
+          <p class="text-[11px] uppercase tracking-[0.28em] text-stone-500">Human confirmation</p>
+          <p id="human-status" class="mt-2 text-base font-medium text-stone-900">Waiting for a deliberate interaction.</p>
+          <p class="mt-2 leading-7 text-stone-600">Link previews and safety scans can open pages without a real person. A click here gives a much stronger confirmation.</p>
+          <button id="confirm-human" type="button" class="mt-4 button-pill button-primary">Confirm human visit</button>
+        </div>
+      </div>
+    </Card>
+  </section>
+
+  <section class="mt-18 grid gap-6 lg:grid-cols-2">
+    <Card title="Probe details" subtitle="The fields we want to compare against GoatCounter afterwards">
+      <dl class="grid gap-4 text-sm text-stone-700 sm:grid-cols-2">
+        <div>
+          <dt class="font-medium text-stone-900">Probe id</dt>
+          <dd id="probe-id" class="mt-1 break-all text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Shareable link</dt>
+          <dd class="mt-1 break-all text-stone-600"><a id="probe-link" href="#" class="underline decoration-stone-300 underline-offset-4 hover:decoration-[color:var(--accent)]">—</a></dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Referrer host</dt>
+          <dd id="referrer-host" class="mt-1 text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Language</dt>
+          <dd id="browser-language" class="mt-1 text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Timezone</dt>
+          <dd id="browser-timezone" class="mt-1 text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Platform summary</dt>
+          <dd id="platform-summary" class="mt-1 text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">User agent family</dt>
+          <dd id="ua-family" class="mt-1 text-stone-600">—</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-stone-900">Touch-capable</dt>
+          <dd id="touch-capable" class="mt-1 text-stone-600">—</dd>
+        </div>
+      </dl>
+    </Card>
+
+    <Card title="What a trustworthy China signal looks like" subtitle="Useful interpretation rules">
+      <ul class="space-y-3 text-sm leading-7 text-stone-700">
+        <li class="border-b border-[var(--border)] pb-3"><span class="font-medium text-stone-900">Strong evidence:</span> a unique probe id, a successful human-confirm click, and client hints like <span class="font-medium text-stone-900">zh-CN</span> or <span class="font-medium text-stone-900">Asia/Shanghai</span>.</li>
+        <li class="border-b border-[var(--border)] pb-3"><span class="font-medium text-stone-900">WeChat clue:</span> a <span class="font-medium text-stone-900">weixin110.qq.com</span> referrer is a WeChat safety-chain signal, not a location guarantee.</li>
+        <li class="border-b border-[var(--border)] pb-3"><span class="font-medium text-stone-900">Likely preview / safety scan:</span> the page loads but there is no human-confirm click and the environment looks sparse or headless.</li>
+        <li><span class="font-medium text-stone-900">Likely overseas egress:</span> client hints look China-side, but GoatCounter still geolocates the visit as United States.</li>
+      </ul>
+    </Card>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const status = {
+        analytics: document.getElementById('analytics-status'),
+        analyticsDetail: document.getElementById('analytics-detail'),
+        human: document.getElementById('human-status'),
+        probeId: document.getElementById('probe-id'),
+        probeLink: document.getElementById('probe-link'),
+        referrerHost: document.getElementById('referrer-host'),
+        browserLanguage: document.getElementById('browser-language'),
+        browserTimezone: document.getElementById('browser-timezone'),
+        platformSummary: document.getElementById('platform-summary'),
+        uaFamily: document.getElementById('ua-family'),
+        touchCapable: document.getElementById('touch-capable'),
+        copyProbeLink: document.getElementById('copy-probe-link'),
+        freshProbeLink: document.getElementById('fresh-probe-link'),
+        confirmHuman: document.getElementById('confirm-human'),
+      };
+
+      const url = new URL(window.location.href);
+      const params = url.searchParams;
+
+      function slugify(input, fallback) {
+        const value = String(input || '').trim().toLowerCase();
+        const slug = value
+          .replace(/https?:\/\//g, '')
+          .replace(/[^a-z0-9._-]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 80);
+        return slug || fallback;
+      }
+
+      function humanTimestamp() {
+        const now = new Date();
+        const pieces = [
+          now.getUTCFullYear(),
+          String(now.getUTCMonth() + 1).padStart(2, '0'),
+          String(now.getUTCDate()).padStart(2, '0'),
+          String(now.getUTCHours()).padStart(2, '0'),
+          String(now.getUTCMinutes()).padStart(2, '0'),
+          String(now.getUTCSeconds()).padStart(2, '0'),
+        ];
+        return pieces.join('');
+      }
+
+      function ensureProbeId() {
+        const requested = params.get('probe');
+        const normalized = slugify(requested, `adhoc-${humanTimestamp()}`);
+        if (!requested || requested !== normalized) {
+          params.set('probe', normalized);
+          history.replaceState({}, '', `${url.pathname}?${params.toString()}`);
+        }
+        return normalized;
+      }
+
+      function parseReferrerHost() {
+        if (!document.referrer) return 'direct';
+        try {
+          return new URL(document.referrer).host || 'direct';
+        } catch {
+          return 'unparsed-referrer';
+        }
+      }
+
+      function detectBrowserFamily(ua) {
+        if (/MicroMessenger/i.test(ua)) return 'WeChat';
+        if (/CriOS/i.test(ua)) return 'Chrome on iOS';
+        if (/EdgiOS|Edg\//i.test(ua)) return 'Edge';
+        if (/FxiOS|Firefox\//i.test(ua)) return 'Firefox';
+        if (/Chrome\//i.test(ua) && !/Edg\//i.test(ua)) return 'Chrome';
+        if (/Safari\//i.test(ua) && !/Chrome\//i.test(ua)) return 'Safari';
+        return 'Unknown browser';
+      }
+
+      function detectPlatform(ua) {
+        if (/iPhone|iPad|iPod/i.test(ua)) return 'iOS';
+        if (/Android/i.test(ua)) return 'Android';
+        if (/Macintosh|Mac OS X/i.test(ua)) return 'macOS';
+        if (/Windows/i.test(ua)) return 'Windows';
+        if (/Linux/i.test(ua)) return 'Linux';
+        return 'Unknown platform';
+      }
+
+      function setText(node, value) {
+        if (node) node.textContent = value;
+      }
+
+      function buildDiagnostics(probeId) {
+        const ua = navigator.userAgent || '';
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown-timezone';
+        const language = navigator.language || (navigator.languages && navigator.languages[0]) || 'unknown-language';
+        const referrerHost = parseReferrerHost();
+        const browser = detectBrowserFamily(ua);
+        const platform = detectPlatform(ua);
+        const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+        const platformSummary = `${platform}${touch ? ' · touch' : ' · pointer'}`;
+
+        return {
+          probeId,
+          referrerHost,
+          language,
+          timezone,
+          browser,
+          platform,
+          touch,
+          platformSummary,
+          refSlug: slugify(referrerHost, 'direct'),
+          langSlug: slugify(language, 'unknown-language'),
+          tzSlug: slugify(timezone, 'unknown-timezone'),
+          uaSlug: slugify(`${browser}-${platform}`, 'unknown-client'),
+        };
+      }
+
+      function buildEventPath(kind, diagnostics) {
+        return `${kind}/${diagnostics.probeId}__${diagnostics.refSlug}__${diagnostics.langSlug}__${diagnostics.tzSlug}__${diagnostics.uaSlug}`;
+      }
+
+      function buildEventTitle(kind, diagnostics) {
+        return [
+          `kind=${kind}`,
+          `probe=${diagnostics.probeId}`,
+          `ref=${diagnostics.referrerHost}`,
+          `lang=${diagnostics.language}`,
+          `tz=${diagnostics.timezone}`,
+          `browser=${diagnostics.browser}`,
+          `platform=${diagnostics.platform}`,
+          `touch=${diagnostics.touch ? 'yes' : 'no'}`,
+          `visibility=${document.visibilityState || 'unknown'}`,
+        ].join(' | ');
+      }
+
+      function waitForGoatcounter(timeoutMs) {
+        return new Promise((resolve) => {
+          const started = Date.now();
+          const tick = () => {
+            if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+              resolve(true);
+              return;
+            }
+            if (Date.now() - started >= timeoutMs) {
+              resolve(false);
+              return;
+            }
+            window.setTimeout(tick, 125);
+          };
+          tick();
+        });
+      }
+
+      function sendProbeEvent(kind, diagnostics) {
+        if (!window.goatcounter || typeof window.goatcounter.count !== 'function') {
+          return { ok: false, reason: 'unavailable' };
+        }
+
+        if (typeof window.goatcounter.filter === 'function') {
+          const filterReason = window.goatcounter.filter();
+          if (filterReason) {
+            return { ok: false, reason: filterReason };
+          }
+        }
+
+        const payload = {
+          event: true,
+          path: buildEventPath(kind, diagnostics),
+          title: buildEventTitle(kind, diagnostics),
+          referrer: diagnostics.referrerHost === 'direct' ? '' : diagnostics.referrerHost,
+        };
+
+        if (typeof window.goatcounter.url === 'function' && !window.goatcounter.url(payload)) {
+          return { ok: false, reason: 'url-unavailable' };
+        }
+
+        window.goatcounter.count(payload);
+        return { ok: true };
+      }
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          setText(status.analyticsDetail, 'Copied the probe link. You can now paste it into WeChat, Safari, or any target browser for a clean test.');
+        } catch {
+          setText(status.analyticsDetail, 'Could not copy automatically. Copy the shareable link manually from the page.');
+        }
+      }
+
+      const probeId = ensureProbeId();
+      const diagnostics = buildDiagnostics(probeId);
+      const canonicalLink = window.location.href;
+
+      setText(status.probeId, diagnostics.probeId);
+      if (status.probeLink) {
+        status.probeLink.textContent = canonicalLink;
+        status.probeLink.href = canonicalLink;
+      }
+      setText(status.referrerHost, diagnostics.referrerHost);
+      setText(status.browserLanguage, diagnostics.language);
+      setText(status.browserTimezone, diagnostics.timezone);
+      setText(status.platformSummary, diagnostics.platformSummary);
+      setText(status.uaFamily, `${diagnostics.browser} · ${diagnostics.platform}`);
+      setText(status.touchCapable, diagnostics.touch ? 'Yes' : 'No');
+
+      if (status.copyProbeLink) {
+        status.copyProbeLink.addEventListener('click', function () {
+          copyText(window.location.href);
+        });
+      }
+
+      if (status.freshProbeLink) {
+        status.freshProbeLink.addEventListener('click', function () {
+          const next = new URL(window.location.href);
+          next.searchParams.set('probe', `adhoc-${humanTimestamp()}`);
+          window.location.href = next.toString();
+        });
+      }
+
+      waitForGoatcounter(5000).then(function (ready) {
+        if (!ready) {
+          setText(status.analytics, 'GoatCounter did not become available in this browser.');
+          setText(status.analyticsDetail, 'That usually means the analytics script or the downstream counter endpoint is blocked. In that case, this visit should not be treated as missing-China evidence; it is a collection failure.');
+          return;
+        }
+
+        const result = sendProbeEvent('verify-arrival', diagnostics);
+        if (result.ok) {
+          setText(status.analytics, 'GoatCounter is available and the arrival probe was sent.');
+          setText(status.analyticsDetail, 'After this test, look for a verify-arrival event containing this probe id in GoatCounter. Compare its location with the language, timezone, and referrer shown here.');
+          return;
+        }
+
+        if (result.reason === 'localhost') {
+          setText(status.analytics, 'GoatCounter is loaded, but localhost previews are intentionally filtered.');
+          setText(status.analyticsDetail, 'This is expected during local testing. Run the same probe on the public site to generate a real analytics signal.');
+          return;
+        }
+
+        setText(status.analytics, 'GoatCounter loaded, but this environment was filtered before sending.');
+        setText(status.analyticsDetail, `The probe was not sent because GoatCounter.filter() returned: ${result.reason}.`);
+      });
+
+      if (status.confirmHuman) {
+        status.confirmHuman.addEventListener('click', function () {
+          const result = sendProbeEvent('verify-human', diagnostics);
+          if (result.ok) {
+            setText(status.human, 'Human confirmation click recorded.');
+            status.confirmHuman.disabled = true;
+            status.confirmHuman.classList.add('opacity-70', 'cursor-not-allowed');
+          } else if (result.reason === 'localhost') {
+            setText(status.human, 'Human click detected locally, but localhost traffic is filtered on purpose.');
+          } else {
+            setText(status.human, 'Human click detected locally, but the analytics event was not sent.');
+          }
+        }, { once: true });
+      }
+    })();
+  </script>
+</Layout>
