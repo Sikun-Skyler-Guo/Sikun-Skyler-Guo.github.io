@@ -42,9 +42,10 @@ export const profile = {
   recentWork: [
     'KDD 2025',
     'EMNLP Findings 2025',
-    'SDM 2025',
     'IJCAI 2025',
+    'IEEE ICDM 2025',
     'Bioinformatics 2025',
+    'SDM 2025',
     'IEEE BigData 2024',
   ],
 };
@@ -119,7 +120,7 @@ export const cvData = {
     },
   ],
   awards: [
-    'ICDM 2025 Best Paper Award',
+    'ICDM 2025 Best Student Paper Award',
     'IEEE BigData 2024 Student Travel Award',
     'Excellent Undergraduate Thesis at Nankai University',
   ],

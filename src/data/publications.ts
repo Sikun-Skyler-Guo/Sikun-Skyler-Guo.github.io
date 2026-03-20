@@ -18,6 +18,7 @@ export type Publication = {
   summary: string;
   links?: PublicationLink[];
   featured?: boolean;
+  award?: string;
   group: 'published' | 'working';
   figureLabel?: string;
   figureSrc?: string;
@@ -130,6 +131,29 @@ export const publications: Publication[] = [
     figureLabel: 'Spatial, temporal, and semantic concept evolution for biomedical hypothesis generation',
     figureSrc: '/conceptdrift-figure.png',
     figureAlt: 'ConceptDrift figure showing semantic evolution over time, temporal semantic contextualization, spatial evolution, and hypothesis generation.',
+  },
+  {
+    title: 'HyHG: A Temporal Hypergraph Contrastive Learning Framework for Biomedical Hypothesis Generation',
+    authors: [
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Sikun Guo', me: true },
+      { name: 'Nathan C. Sheffield' },
+      { name: 'Aidong Zhang' },
+      { name: 'Kishlay Jha' },
+    ],
+    venue: 'IEEE ICDM 2025',
+    year: 2025,
+    status: 'Published',
+    tag: 'Biomedical hypothesis generation',
+    summary:
+      'HyHG models biomedical hypothesis generation with a temporal hypergraph view of evolving scientific concepts, allowing the system to capture higher-order relations that ordinary pairwise graphs miss. The paper received the ICDM 2025 Best Student Paper Award, making it a particularly visible result in the structured-scientific-discovery line of work.',
+    links: [
+      { label: 'Paper', href: 'https://ieeexplore.ieee.org/document/11391984/' },
+      { label: 'Award', href: 'https://engineering.virginia.edu/department/computer-science/blogs/best-student-paper-award-given-icdm-2025' },
+    ],
+    featured: true,
+    award: 'ICDM 2025 Best Student Paper Award',
+    group: 'published',
   },
   {
     title: 'Optimizing External and Internal Knowledge of Foundation Models for Scientific Discovery',

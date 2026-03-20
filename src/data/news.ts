@@ -5,7 +5,7 @@ export const news = [
   },
   {
     date: '2025',
-    title: 'Co-authored HyHG received the ICDM 2025 Best Paper Award.',
+    title: 'Co-authored HyHG received the ICDM 2025 Best Student Paper Award.',
   },
   {
     date: '2025',

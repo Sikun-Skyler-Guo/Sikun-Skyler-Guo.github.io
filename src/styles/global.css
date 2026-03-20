@@ -83,6 +83,24 @@ a:hover {
   background: var(--surface);
 }
 
+.button-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 9999px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 14px 40px -22px rgba(15, 118, 110, 0.45);
+}
+
+.button-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 44px -24px rgba(15, 118, 110, 0.38);
+}
+
 .button-primary {
   background: var(--accent);
   color: #ffffff;
@@ -92,6 +110,7 @@ a:hover {
 .button-primary:hover {
   background: var(--accent-strong);
   color: #ffffff;
+  border-color: var(--accent-strong);
 }
 
 .button-secondary {
