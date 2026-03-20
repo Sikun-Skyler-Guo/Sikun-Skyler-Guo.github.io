@@ -1,48 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import SectionHeading from '../components/SectionHeading.astro';
 import analyticsSummary from '../data/analytics-summary.json';
-
-const updatedAt = new Date(analyticsSummary.generatedAt).toLocaleString('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  hour: 'numeric',
-  minute: '2-digit',
-});
 ---
 
-<Layout title="Visitor Locations" description="A public, privacy-respecting snapshot of where visitors to Sikun Guo's homepage are coming from.">
-  <SectionHeading
-    eyebrow="Visitor locations"
-    title="A public geographic snapshot of site reach"
-    intro="Most detailed homepage analytics stay private. This page intentionally shows only a lightweight view of where recent visitors have come from, without exposing broader traffic or engagement metrics."
-  />
-
+<Layout title="Global Reach" description="A lightweight public view of global reach for Sikun Guo's homepage.">
   <div class="mb-8 flex flex-wrap gap-3">
     <a href="/" class="button-pill button-primary">Back to home</a>
   </div>
 
-  <section class="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-    <Card title="Visitor locations" subtitle={`Updated ${updatedAt}`}>
-      {analyticsSummary.topLocations.length ? (
-        <div class="flex flex-wrap gap-3">
-          {analyticsSummary.topLocations.map((item) => (
-            <span class="rounded-full border border-[var(--border)] bg-[color:var(--surface-strong)] px-4 py-2 text-sm text-stone-700">
-              {item.name}
-            </span>
-          ))}
-        </div>
-      ) : (
-        <p class="text-sm leading-7 text-stone-600">Tracking is live, but the site has not yet accumulated enough outside traffic to show a meaningful geographic spread.</p>
-      )}
-    </Card>
-
-    <Card title="Why the public view is limited" subtitle={`Rolling ${analyticsSummary.rangeDays}-day window`}>
-      <div class="space-y-3 text-sm leading-7 text-stone-700">
-        <p>This public page is intentionally minimal. It shares only a coarse geographic picture of where readers are coming from.</p>
-        <p>Detailed metrics such as visit counts, referrers, page popularity, and click activity are kept private rather than exposed on the public homepage.</p>
+  <section class="max-w-md">
+    <Card compact title="Global reach">
+      <div class="min-h-16">
+        {analyticsSummary.topLocations.length ? (
+          <div class="flex flex-wrap gap-3">
+            {analyticsSummary.topLocations.map((item) => (
+              <span class="rounded-full border border-[var(--border)] bg-[color:var(--surface-strong)] px-4 py-2 text-sm text-stone-700">
+                {item.name}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
     </Card>
   </section>
