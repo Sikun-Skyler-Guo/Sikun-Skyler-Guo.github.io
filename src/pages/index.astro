@@ -4,11 +4,24 @@ import Card from '../components/Card.astro';
 import OpenClawDiagram from '../components/OpenClawDiagram.astro';
 import PublicationCard from '../components/PublicationCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import analyticsSummary from '../data/analytics-summary.json';
 import { cvData, homepage, profile } from '../data/site';
 import { featuredPublications } from '../data/publications';
 import { news } from '../data/news';
 
 const industryExperience = cvData.experience.find((item) => item.org === 'Autoscience Institute');
+const numberFormat = new Intl.NumberFormat('en-US');
+const statsUpdated = new Date(analyticsSummary.generatedAt).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+const topReferrersLabel = analyticsSummary.topReferrers.length
+  ? analyticsSummary.topReferrers.slice(0, 3).map((item) => item.name).join(' · ')
+  : 'Collecting first traffic sources';
+const topLocationsLabel = analyticsSummary.topLocations.length
+  ? analyticsSummary.topLocations.slice(0, 3).map((item) => item.name).join(' · ')
+  : 'Collecting first visitor locations';
 ---
 
 <Layout title="Home" description={homepage.heroBody}>
@@ -21,7 +34,7 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
       <div class="mt-9 flex flex-wrap gap-3">
         <a href="/publications" class="button-pill button-primary">Browse publications</a>
         <a href="/research" class="button-pill button-primary">Read research agenda</a>
-        <a href={profile.cvHref} class="button-pill button-primary">Download CV</a>
+        <a href={profile.cvHref} data-goatcounter-click="click-cv-download" data-goatcounter-title="Homepage CV download" class="button-pill button-primary">Download CV</a>
       </div>
     </div>
 
@@ -133,5 +146,46 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
         ))}
       </div>
     </div>
+  </section>
+
+  <section class="mt-22 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+    <div>
+      <SectionHeading
+        eyebrow="Site reach"
+        title="A lightweight read on who is finding the work"
+        intro="Privacy-friendly analytics now track visits, referrers, locations, and key actions such as CV downloads. The summary below refreshes automatically, while the public dashboard offers a more detailed live view."
+      />
+      <div class="grid gap-5 md:grid-cols-2">
+        <Card compact title="All-time visits">
+          <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.allTimeVisits)}</p>
+          <p class="mt-2 text-sm leading-7 text-stone-600">Total recorded visits across the site.</p>
+        </Card>
+        <Card compact title={`Last ${analyticsSummary.rangeDays} days`}>
+          <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.last30DaysVisits)}</p>
+          <p class="mt-2 text-sm leading-7 text-stone-600">Visits in the most recent reporting window.</p>
+        </Card>
+        <Card compact title="Top referrers">
+          <p class="text-sm leading-7 text-stone-700">{topReferrersLabel}</p>
+        </Card>
+        <Card compact title="Visitor locations">
+          <p class="text-sm leading-7 text-stone-700">{topLocationsLabel}</p>
+        </Card>
+      </div>
+    </div>
+
+    <Card title="Key actions" subtitle={`Updated ${statsUpdated}`}>
+      <div class="space-y-4">
+        {analyticsSummary.keyActions.map((item) => (
+          <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 last:border-0">
+            <p class="text-sm text-stone-700">{item.label}</p>
+            <p class="text-sm font-semibold text-stone-900">{numberFormat.format(item.count)}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/analytics" class="button-pill button-primary">Open analytics page</a>
+        <a href={analyticsSummary.dashboardUrl} target="_blank" rel="noreferrer" class="button-pill button-secondary">View live dashboard</a>
+      </div>
+    </Card>
   </section>
 </Layout>

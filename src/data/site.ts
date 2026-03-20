@@ -27,10 +27,10 @@ export const profile = {
   collaborationNote:
     'Research areas: LLM parametric knowledge optimization, inference-time learning, graph neural networks, AI for Science, and the path toward autonomous AI research systems.',
   links: [
-    { label: 'Email', href: 'mailto:qkm6sq@virginia.edu' },
-    { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=h2oGOaQAAAAJ' },
-    { label: 'GitHub', href: 'https://github.com/Sikun-Skyler-Guo' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sikun-guo/en' },
+    { label: 'Email', href: 'mailto:qkm6sq@virginia.edu', tracking: 'click-email' },
+    { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=h2oGOaQAAAAJ', tracking: 'click-google-scholar' },
+    { label: 'GitHub', href: 'https://github.com/Sikun-Skyler-Guo', tracking: 'click-github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sikun-guo/en', tracking: 'click-linkedin' },
   ],
   researchAreas: [
     'LLM parametric knowledge optimization',

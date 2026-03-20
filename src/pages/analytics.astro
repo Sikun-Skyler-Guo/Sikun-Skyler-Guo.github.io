@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import analyticsSummary from '../data/analytics-summary.json';
+
+const numberFormat = new Intl.NumberFormat('en-US');
+const updatedAt = new Date(analyticsSummary.generatedAt).toLocaleString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  hour: 'numeric',
+  minute: '2-digit',
+});
+
+const hasTraffic =
+  analyticsSummary.totals.allTimeVisits > 0 ||
+  analyticsSummary.totals.last30DaysVisits > 0 ||
+  analyticsSummary.keyActions.some((item) => item.count > 0);
+---
+
+<Layout title="Analytics" description="Privacy-friendly visitor analytics for Sikun Guo's homepage.">
+  <SectionHeading
+    eyebrow="Analytics"
+    title="Privacy-friendly audience snapshot"
+    intro="This page summarizes how readers are finding the homepage and what they engage with most. Data is collected with GoatCounter, refreshed automatically, and kept intentionally lightweight."
+  />
+
+  <div class="mb-8 flex flex-wrap gap-3">
+    <a href={analyticsSummary.dashboardUrl} target="_blank" rel="noreferrer" class="button-pill button-primary">Open live GoatCounter dashboard</a>
+    <a href="/" class="button-pill button-secondary">Back to home</a>
+  </div>
+
+  <section class="grid gap-5 md:grid-cols-3">
+    <Card compact title="All-time visits">
+      <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.allTimeVisits)}</p>
+      <p class="mt-2 text-sm leading-7 text-stone-600">Total visits recorded for the site.</p>
+    </Card>
+    <Card compact title={`Last ${analyticsSummary.rangeDays} days`}>
+      <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.last30DaysVisits)}</p>
+      <p class="mt-2 text-sm leading-7 text-stone-600">Recent visits across homepage, publications, research, and CV pages.</p>
+    </Card>
+    <Card compact title="Tracked actions">
+      <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.keyActions.reduce((sum, item) => sum + item.count, 0))}</p>
+      <p class="mt-2 text-sm leading-7 text-stone-600">Tracked outbound actions such as CV downloads and profile-link clicks.</p>
+    </Card>
+  </section>
+
+  <section class="mt-12 grid gap-6 lg:grid-cols-2">
+    <Card title="Key actions" subtitle={`Updated ${updatedAt}`}>
+      <div class="space-y-4">
+        {analyticsSummary.keyActions.map((item) => (
+          <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 text-sm last:border-0">
+            <span class="text-stone-700">{item.label}</span>
+            <span class="font-semibold text-stone-950">{numberFormat.format(item.count)}</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+
+    <Card title="Top pages" subtitle={`Last ${analyticsSummary.rangeDays} days`}>
+      {analyticsSummary.topPages.length ? (
+        <div class="space-y-4">
+          {analyticsSummary.topPages.map((item) => (
+            <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 text-sm last:border-0">
+              <div>
+                <p class="font-medium text-stone-900">{item.title}</p>
+                <p class="mt-1 text-stone-500">{item.path}</p>
+              </div>
+              <span class="font-semibold text-stone-950">{numberFormat.format(item.count)}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-sm leading-7 text-stone-600">Tracking is live, but this page has not accumulated enough traffic yet to rank pages meaningfully.</p>
+      )}
+    </Card>
+  </section>
+
+  <section class="mt-12 grid gap-6 lg:grid-cols-2">
+    <Card title="Referrers" subtitle="Where recent readers came from">
+      {analyticsSummary.topReferrers.length ? (
+        <div class="space-y-4">
+          {analyticsSummary.topReferrers.map((item) => (
+            <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 text-sm last:border-0">
+              <span class="text-stone-700">{item.name}</span>
+              <span class="font-semibold text-stone-950">{numberFormat.format(item.count)}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-sm leading-7 text-stone-600">Referrer data will appear here once the site starts receiving outside visits.</p>
+      )}
+    </Card>
+
+    <Card title="Locations" subtitle="A rough geographic picture of readership">
+      {analyticsSummary.topLocations.length ? (
+        <div class="space-y-4">
+          {analyticsSummary.topLocations.map((item) => (
+            <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 text-sm last:border-0">
+              <span class="text-stone-700">{item.name}</span>
+              <span class="font-semibold text-stone-950">{numberFormat.format(item.count)}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-sm leading-7 text-stone-600">Location data will populate after the first external visits arrive.</p>
+      )}
+    </Card>
+  </section>
+
+  <section class="mt-12">
+    <Card title="Notes on interpretation">
+      <div class="space-y-3 text-sm leading-7 text-stone-700">
+        <p>This summary is intentionally simple: it is meant to tell whether people are finding the work, where they are coming from, and whether they click through to core assets such as the CV or Google Scholar profile.</p>
+        <p>The public GoatCounter dashboard updates more frequently than this page. This page refreshes automatically on a schedule so the homepage can stay static and fast on GitHub Pages.</p>
+        {!hasTraffic && <p class="text-stone-600">Right now the site is in the “instrumentation is live, traffic is still accumulating” stage—which is exactly what we would expect immediately after setup.</p>}
+      </div>
+    </Card>
+  </section>
+</Layout>
