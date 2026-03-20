@@ -3,35 +3,5 @@
   "rangeDays": 30,
   "siteUrl": "https://sikun-skyler-guo.github.io",
   "dashboardUrl": "https://sikunskylerguo.goatcounter.com/",
-  "totals": {
-    "allTimeVisits": 0,
-    "last30DaysVisits": 0,
-    "last30DaysEvents": 0
-  },
-  "topPages": [],
-  "topReferrers": [],
-  "topLocations": [],
-  "topDevices": [],
-  "keyActions": [
-    {
-      "label": "CV downloads",
-      "path": "click-cv-download",
-      "count": 0
-    },
-    {
-      "label": "Email clicks",
-      "path": "click-email",
-      "count": 0
-    },
-    {
-      "label": "Google Scholar clicks",
-      "path": "click-google-scholar",
-      "count": 0
-    },
-    {
-      "label": "GitHub clicks",
-      "path": "click-github",
-      "count": 0
-    }
-  ]
+  "topLocations": []
 }

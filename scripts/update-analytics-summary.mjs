@@ -23,13 +23,6 @@ const start = new Date(end);
 start.setUTCDate(start.getUTCDate() - rangeDays + 1);
 start.setUTCHours(0, 0, 0, 0);
 
-const actionSpecs = [
-  ['CV downloads', 'click-cv-download'],
-  ['Email clicks', 'click-email'],
-  ['Google Scholar clicks', 'click-google-scholar'],
-  ['GitHub clicks', 'click-github'],
-];
-
 function withParams(endpoint, params = {}) {
   const url = new URL(endpoint, apiBase + '/');
   for (const [key, value] of Object.entries(params)) {
@@ -68,108 +61,26 @@ async function getJson(url, attempt = 0) {
   return response.json();
 }
 
-async function getPublicCounter() {
-  const url = `${dashboardUrl}counter/TOTAL.json?no_branding=1`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Counter endpoint ${response.status}`);
-  return response.json();
-}
-
-function normalizeCount(value) {
-  if (typeof value === 'number') return value;
-  if (typeof value === 'string') return Number(value.replace(/,/g, '')) || 0;
-  return 0;
-}
-
-function titleForPath(item) {
-  if (item.title && item.title.trim()) return item.title.trim();
-  return item.path;
-}
-
-function labelForDevice(id) {
-  return {
-    phone: 'Phone',
-    tablet: 'Tablet',
-    desktop: 'Desktop',
-    desktophd: 'Desktop HD',
-    unknown: 'Unknown',
-  }[id] ?? id;
-}
-
 const commonParams = {
   start: start.toISOString(),
   end: end.toISOString(),
 };
 
-const counter = await getPublicCounter();
-const total = await getJson(withParams('stats/total', commonParams));
-const hits = await getJson(withParams('stats/hits', { ...commonParams, limit: 8 }));
-const toprefs = await getJson(withParams('stats/toprefs', { ...commonParams, limit: 6 }));
-const locations = await getJson(withParams('stats/locations', { ...commonParams, limit: 6 }));
-const sizes = await getJson(withParams('stats/sizes', commonParams));
-
-const keyActionsRaw = [];
-for (const [label, actionPath] of actionSpecs) {
-  const result = await getJson(
-    withParams('stats/hits', {
-      ...commonParams,
-      path_by_name: true,
-      include_paths: [actionPath],
-      limit: 1,
-    }),
-  );
-  const hit = Array.isArray(result.hits) ? result.hits.find((item) => item.path === actionPath) : undefined;
-  keyActionsRaw.push({
-    label,
-    path: actionPath,
-    count: normalizeCount(hit?.count),
-  });
-}
+const locations = await getJson(withParams('stats/locations', { ...commonParams, limit: 12 }));
 
 const summary = {
   generatedAt: new Date().toISOString(),
   rangeDays,
   siteUrl,
   dashboardUrl,
-  totals: {
-    allTimeVisits: normalizeCount(counter.count),
-    last30DaysVisits: normalizeCount(total.total),
-    last30DaysEvents: normalizeCount(total.total_events),
-  },
-  topPages: (hits.hits ?? [])
-    .filter((item) => !item.event && typeof item.path === 'string' && item.path.startsWith('/'))
-    .slice(0, 5)
-    .map((item) => ({
-      path: item.path,
-      title: titleForPath(item),
-      count: normalizeCount(item.count),
-    })),
-  topReferrers: (toprefs.stats ?? [])
-    .filter((item) => normalizeCount(item.count) > 0)
-    .slice(0, 5)
-    .map((item) => ({
-      id: item.id,
-      name: item.name || item.id,
-      count: normalizeCount(item.count),
-    })),
   topLocations: (locations.stats ?? [])
-    .filter((item) => normalizeCount(item.count) > 0)
-    .slice(0, 5)
+    .filter((item) => Number(item.count ?? 0) > 0)
+    .slice(0, 8)
     .map((item) => ({
-      id: item.id,
-      name: item.name || item.id,
-      count: normalizeCount(item.count),
+      name: item.name || item.id || 'Unknown',
     })),
-  topDevices: (sizes.stats ?? [])
-    .filter((item) => normalizeCount(item.count) > 0)
-    .map((item) => ({
-      id: item.id,
-      name: labelForDevice(item.id),
-      count: normalizeCount(item.count),
-    })),
-  keyActions: keyActionsRaw,
 };
 
 await mkdir(path.dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(summary, null, 2)}\n`);
-console.log(`Wrote analytics summary to ${path.relative(repoRoot, outputPath)}`);
+console.log(`Wrote public-safe analytics summary to ${path.relative(repoRoot, outputPath)}`);

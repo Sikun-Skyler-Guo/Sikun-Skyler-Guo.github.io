@@ -10,18 +10,11 @@ import { featuredPublications } from '../data/publications';
 import { news } from '../data/news';
 
 const industryExperience = cvData.experience.find((item) => item.org === 'Autoscience Institute');
-const numberFormat = new Intl.NumberFormat('en-US');
 const statsUpdated = new Date(analyticsSummary.generatedAt).toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
 });
-const topReferrersLabel = analyticsSummary.topReferrers.length
-  ? analyticsSummary.topReferrers.slice(0, 3).map((item) => item.name).join(' · ')
-  : 'Collecting first traffic sources';
-const topLocationsLabel = analyticsSummary.topLocations.length
-  ? analyticsSummary.topLocations.slice(0, 3).map((item) => item.name).join(' · ')
-  : 'Collecting first visitor locations';
 ---
 
 <Layout title="Home" description={homepage.heroBody}>
@@ -152,39 +145,31 @@ const topLocationsLabel = analyticsSummary.topLocations.length
     <div>
       <SectionHeading
         eyebrow="Site reach"
-        title="A lightweight read on who is finding the work"
-        intro="Privacy-friendly analytics now track visits, referrers, locations, and key actions such as CV downloads. The summary below refreshes automatically, while the public dashboard offers a more detailed live view."
+        title="A lightweight public view of geographic reach"
+        intro="Most detailed homepage analytics stay private. Public pages show only a restrained snapshot of where recent visitors have come from."
       />
-      <div class="grid gap-5 md:grid-cols-2">
-        <Card compact title="All-time visits">
-          <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.allTimeVisits)}</p>
-          <p class="mt-2 text-sm leading-7 text-stone-600">Total recorded visits across the site.</p>
-        </Card>
-        <Card compact title={`Last ${analyticsSummary.rangeDays} days`}>
-          <p class="text-3xl font-semibold tracking-tight text-stone-950">{numberFormat.format(analyticsSummary.totals.last30DaysVisits)}</p>
-          <p class="mt-2 text-sm leading-7 text-stone-600">Visits in the most recent reporting window.</p>
-        </Card>
-        <Card compact title="Top referrers">
-          <p class="text-sm leading-7 text-stone-700">{topReferrersLabel}</p>
-        </Card>
-        <Card compact title="Visitor locations">
-          <p class="text-sm leading-7 text-stone-700">{topLocationsLabel}</p>
-        </Card>
-      </div>
+      <Card title="Visitor locations" subtitle={`Updated ${statsUpdated}`}>
+        {analyticsSummary.topLocations.length ? (
+          <div class="flex flex-wrap gap-3">
+            {analyticsSummary.topLocations.map((item) => (
+              <span class="rounded-full border border-[var(--border)] bg-[color:var(--surface-strong)] px-4 py-2 text-sm text-stone-700">
+                {item.name}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p class="text-sm leading-7 text-stone-600">Tracking is live, but the site has not yet accumulated enough outside traffic to show a meaningful geographic spread.</p>
+        )}
+      </Card>
     </div>
 
-    <Card title="Key actions" subtitle={`Updated ${statsUpdated}`}>
-      <div class="space-y-4">
-        {analyticsSummary.keyActions.map((item) => (
-          <div class="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-3 last:border-0">
-            <p class="text-sm text-stone-700">{item.label}</p>
-            <p class="text-sm font-semibold text-stone-900">{numberFormat.format(item.count)}</p>
-          </div>
-        ))}
+    <Card title="Privacy by design" subtitle={`Rolling ${analyticsSummary.rangeDays}-day window`}>
+      <div class="space-y-3 text-sm leading-7 text-stone-700">
+        <p>This public view intentionally shows only a coarse geographic picture of readership.</p>
+        <p>Detailed visit counts, traffic sources, page-level rankings, and click-through activity are kept private rather than exposed on the public site.</p>
       </div>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="/analytics" class="button-pill button-primary">Open analytics page</a>
-        <a href={analyticsSummary.dashboardUrl} target="_blank" rel="noreferrer" class="button-pill button-secondary">View live dashboard</a>
+        <a href="/analytics" class="button-pill button-primary">Open visitor locations page</a>
       </div>
     </Card>
   </section>
