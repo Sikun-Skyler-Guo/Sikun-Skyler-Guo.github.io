@@ -1,0 +1,38 @@
+name: Debug GoatCounter analytics report
+
+on:
+  workflow_dispatch:
+    inputs:
+      hitsLimit:
+        description: Maximum number of hit paths to inspect
+        required: false
+        default: '100'
+      pageLimit:
+        description: How many top pages/events to print per window
+        required: false
+        default: '8'
+      refLimit:
+        description: How many top referrers to print per page
+        required: false
+        default: '8'
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Query GoatCounter analytics report
+        env:
+          GOATCOUNTER_API_TOKEN: ${{ secrets.GOATCOUNTER_API_TOKEN }}
+          GOATCOUNTER_SITE_CODE: sikunskylerguo
+          GOATCOUNTER_HITS_LIMIT: ${{ inputs.hitsLimit }}
+          GOATCOUNTER_PAGE_LIMIT: ${{ inputs.pageLimit }}
+          GOATCOUNTER_REF_LIMIT: ${{ inputs.refLimit }}
+        run: node scripts/debug-analytics-report.mjs
