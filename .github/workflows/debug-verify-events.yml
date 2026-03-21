@@ -1,0 +1,38 @@
+name: Debug GoatCounter verify events
+
+on:
+  workflow_dispatch:
+    inputs:
+      rangeDays:
+        description: How many days back to inspect for verify events
+        required: false
+        default: '14'
+      filter:
+        description: Optional substring filter for probe id or path
+        required: false
+        default: ''
+      hitsLimit:
+        description: Maximum number of hit paths to inspect
+        required: false
+        default: '200'
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Query GoatCounter verify events
+        env:
+          GOATCOUNTER_API_TOKEN: ${{ secrets.GOATCOUNTER_API_TOKEN }}
+          GOATCOUNTER_SITE_CODE: sikunskylerguo
+          GOATCOUNTER_RANGE_DAYS: ${{ inputs.rangeDays }}
+          GOATCOUNTER_VERIFY_FILTER: ${{ inputs.filter }}
+          GOATCOUNTER_HITS_LIMIT: ${{ inputs.hitsLimit }}
+        run: node scripts/debug-verify-events.mjs

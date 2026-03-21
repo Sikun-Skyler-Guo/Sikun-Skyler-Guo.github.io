@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,6 +12,7 @@ const dashboardUrl = `https://${siteCode}.goatcounter.com/`;
 const apiBase = `${dashboardUrl}api/v0`;
 const token = process.env.GOATCOUNTER_API_TOKEN;
 const rangeDays = Number(process.env.GOATCOUNTER_RANGE_DAYS ?? 30);
+const locationPageCandidates = ['locations', 'location', 'countries', 'country'];
 
 if (!token) {
   throw new Error('Missing GOATCOUNTER_API_TOKEN');
@@ -55,10 +56,62 @@ async function getJson(url, attempt = 0) {
   }
 
   if (!response.ok) {
-    throw new Error(`GoatCounter API ${response.status} for ${url.pathname}${url.search}`);
+    const body = await response.text().catch(() => '');
+    const suffix = body ? ` :: ${body.slice(0, 240)}` : '';
+    const error = new Error(`GoatCounter API ${response.status} for ${url.pathname}${url.search}${suffix}`);
+    error.status = response.status;
+    error.body = body;
+    error.url = url.toString();
+    throw error;
   }
 
   return response.json();
+}
+
+async function readExistingSummary() {
+  try {
+    const raw = await readFile(outputPath, 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+async function fetchStatsWithFallback(pages, params) {
+  const attempts = [];
+
+  for (const page of pages) {
+    try {
+      const data = await getJson(withParams(`stats/${page}`, params));
+      return { page, data, attempts };
+    } catch (error) {
+      attempts.push({
+        page,
+        status: error?.status ?? 'unknown',
+        message: error?.message ?? String(error),
+      });
+
+      if (![400, 404].includes(error?.status)) {
+        error.attempts = attempts;
+        throw error;
+      }
+    }
+  }
+
+  const error = new Error(
+    `No supported GoatCounter stats page succeeded for candidates: ${pages.join(', ')}`,
+  );
+  error.attempts = attempts;
+  throw error;
+}
+
+function normalizeTopLocations(stats) {
+  return (stats ?? [])
+    .filter((item) => Number(item.count ?? 0) > 0)
+    .slice(0, 8)
+    .map((item) => ({
+      name: item.name || item.id || 'Unknown',
+    }));
 }
 
 const commonParams = {
@@ -66,19 +119,40 @@ const commonParams = {
   end: end.toISOString(),
 };
 
-const locations = await getJson(withParams('stats/locations', { ...commonParams, limit: 12 }));
+const previousSummary = await readExistingSummary();
+let topLocations = previousSummary?.topLocations ?? [];
+let locationStatsPage = null;
+
+try {
+  const { page, data, attempts } = await fetchStatsWithFallback(locationPageCandidates, {
+    ...commonParams,
+    limit: 12,
+  });
+  locationStatsPage = page;
+  topLocations = normalizeTopLocations(data.stats);
+  console.log(`Loaded top locations from GoatCounter stats/${page}`);
+  if (attempts.length) {
+    console.log(`Earlier fallback attempts: ${JSON.stringify(attempts)}`);
+  }
+} catch (error) {
+  console.warn(`Warning: could not refresh top locations. ${error.message}`);
+  if (error?.attempts?.length) {
+    console.warn(`Fallback attempts: ${JSON.stringify(error.attempts)}`);
+  }
+  if (previousSummary?.topLocations?.length) {
+    console.warn('Falling back to the previous public-safe topLocations snapshot.');
+  } else {
+    console.warn('No previous analytics snapshot found; writing an empty location list.');
+  }
+}
 
 const summary = {
   generatedAt: new Date().toISOString(),
   rangeDays,
   siteUrl,
   dashboardUrl,
-  topLocations: (locations.stats ?? [])
-    .filter((item) => Number(item.count ?? 0) > 0)
-    .slice(0, 8)
-    .map((item) => ({
-      name: item.name || item.id || 'Unknown',
-    })),
+  ...(locationStatsPage ? { locationStatsPage } : {}),
+  topLocations,
 };
 
 await mkdir(path.dirname(outputPath), { recursive: true });
