@@ -10,9 +10,73 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
-const pageTitle = title ? `${title} | ${site.title}` : `${site.title} | Academic Homepage`;
-const pageDescription = description ?? site.description;
 const pathname = Astro.url.pathname;
+const canonicalUrl = new URL(pathname, site.url).toString();
+const isHome = pathname === '/';
+const pageTitle = isHome
+  ? site.homeTitle
+  : title
+    ? `${title} | ${site.fullTitle}`
+    : site.homeTitle;
+const pageDescription = description ?? site.description;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  alternateName: profile.nativeName,
+  url: site.url,
+  email: `mailto:${profile.email}`,
+  jobTitle: profile.role,
+  description: site.description,
+  worksFor: {
+    '@type': 'CollegeOrUniversity',
+    name: profile.worksFor,
+  },
+  affiliation: {
+    '@type': 'Organization',
+    name: profile.affiliation,
+  },
+  alumniOf: profile.alumniOf.map((name) => ({
+    '@type': 'CollegeOrUniversity',
+    name,
+  })),
+  knowsAbout: profile.researchAreas,
+  sameAs: profile.sameAs,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: profile.location,
+    addressCountry: profile.country,
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.fullTitle,
+  url: site.url,
+  description: site.description,
+  inLanguage: 'en',
+  about: {
+    '@type': 'Person',
+    name: profile.name,
+    alternateName: profile.nativeName,
+  },
+};
+
+const profilePageSchema = isHome
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      name: site.homeTitle,
+      url: canonicalUrl,
+      mainEntity: {
+        '@type': 'Person',
+        name: profile.name,
+        alternateName: profile.nativeName,
+      },
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -22,11 +86,24 @@ const pathname = Astro.url.pathname;
     <meta name="description" content={pageDescription} />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#fafaf9" />
+    <meta name="author" content={site.fullTitle} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={new URL(pathname, site.url).toString()} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content={isHome ? 'profile' : 'website'} />
+    <meta property="og:site_name" content={site.fullTitle} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{pageTitle}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {profilePageSchema && <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />}
     <script
       is:inline
       data-goatcounter={`${analyticsSummary.dashboardUrl}count`}
@@ -40,6 +117,7 @@ const pathname = Astro.url.pathname;
         <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div class="max-w-3xl">
             <a href="/" class="inline-block text-5xl font-semibold tracking-[-0.05em] text-stone-950 sm:text-6xl">{profile.name}</a>
+            <p class="mt-2 text-sm tracking-[0.2em] text-stone-500">{profile.nativeName}</p>
             <p class="mt-3 text-lg font-medium tracking-tight text-stone-900 sm:text-xl">{profile.role}</p>
             <p class="mt-2 text-sm text-stone-600">{profile.affiliation} · Advisor: <a href={profile.advisorUrl} target="_blank" rel="noreferrer" class="underline decoration-stone-300 underline-offset-4 hover:decoration-[color:var(--accent)] hover:text-[color:var(--accent-strong)]">{profile.advisorName}</a> · {profile.location}</p>
             <p class="mt-4 max-w-3xl text-sm leading-7 text-stone-600">{profile.collaborationNote}</p>
@@ -87,7 +165,7 @@ const pathname = Astro.url.pathname;
 
       <footer class="mt-20 border-t border-[var(--border)] pt-6 text-sm text-stone-500">
         <div class="flex items-center justify-between">
-          <p>{profile.name} · {profile.affiliation}</p>
+          <p>{profile.displayName} · {profile.affiliation}</p>
         </div>
       </footer>
     </div>

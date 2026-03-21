@@ -1,7 +1,10 @@
 export const site = {
   title: 'Sikun Guo',
+  nativeTitle: '郭司坤',
+  fullTitle: 'Sikun Guo (郭司坤)',
+  homeTitle: 'Sikun Guo (郭司坤) | PhD Candidate at the University of Virginia',
   description:
-    'PhD Candidate at the University of Virginia studying parametric knowledge optimization in large language models, inference-time learning, graph neural networks, and AI for Science.',
+    'Sikun Guo (郭司坤) is a PhD Candidate at the University of Virginia studying parametric knowledge optimization in large language models, inference-time learning, graph neural networks, and AI for Science.',
   url: 'https://sikun-skyler-guo.github.io',
   nav: [
     { href: '/', label: 'Home' },
@@ -13,16 +16,21 @@ export const site = {
 
 export const profile = {
   name: 'Sikun Guo',
+  nativeName: '郭司坤',
+  displayName: 'Sikun Guo (郭司坤)',
   role: 'PhD Candidate in Computer Science, University of Virginia',
   location: 'Charlottesville, VA',
+  country: 'United States',
   email: 'qkm6sq@virginia.edu',
   tagline:
     'I study how to optimize the parametric knowledge learned by large language models so they can better activate, refine, and use what they already know for scientific reasoning.',
   intro:
-    'I am a PhD Candidate in Computer Science at the University of Virginia in the RealAI Lab. My research asks how foundation models can become more capable scientific reasoners: not only by accessing external information, but by making better use of the knowledge already encoded in their parameters. Recent work includes benchmarking research idea generation, improving ideation quality at inference time, evaluating truthfulness in model-generated scientific hypotheses, and using structured scientific representations for discovery. Outside research, I follow financial markets and trading, play table tennis, sing, and enjoy road trips.',
+    'I am Sikun Guo (郭司坤), a PhD Candidate in Computer Science at the University of Virginia in the RealAI Lab. My research asks how foundation models can become more capable scientific reasoners: not only by accessing external information, but by making better use of the knowledge already encoded in their parameters. Recent work includes benchmarking research idea generation, improving ideation quality at inference time, evaluating truthfulness in model-generated scientific hypotheses, and using structured scientific representations for discovery. Outside research, I follow financial markets and trading, play table tennis, sing, and enjoy road trips.',
   advisorName: 'Prof. Aidong Zhang',
   advisorUrl: 'https://www.cs.virginia.edu/~az9eg/website/home.html',
   affiliation: 'RealAI Lab, University of Virginia',
+  worksFor: 'University of Virginia',
+  alumniOf: ['University of Virginia', 'Nankai University'],
   cvHref: '/Sikun_Guo_Resume_2026-03-12.pdf',
   collaborationNote:
     'Research areas: LLM parametric knowledge optimization, inference-time learning, graph neural networks, AI for Science, and the path toward autonomous AI research systems.',
@@ -31,6 +39,11 @@ export const profile = {
     { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=h2oGOaQAAAAJ', tracking: 'click-google-scholar' },
     { label: 'GitHub', href: 'https://github.com/Sikun-Skyler-Guo', tracking: 'click-github' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sikun-guo/en', tracking: 'click-linkedin' },
+  ],
+  sameAs: [
+    'https://scholar.google.com/citations?user=h2oGOaQAAAAJ',
+    'https://github.com/Sikun-Skyler-Guo',
+    'https://www.linkedin.com/in/sikun-guo/en',
   ],
   researchAreas: [
     'LLM parametric knowledge optimization',
@@ -57,6 +70,8 @@ export const homepage = {
     'Optimizing Parametric Knowledge in Large Language Models for Scientific Discovery',
   heroBody:
     'I study how large language models can better activate, refine, and use the knowledge they acquire during training. Rather than treating scientific reasoning as only a scaling or retrieval problem, I focus on the internal knowledge already encoded in model parameters and on methods that make it more usable at inference time. My work spans parametric knowledge optimization, inference-time learning, graph neural networks, and AI for Science, with the long-term goal of autonomous AI research systems.',
+  metaDescription:
+    'Sikun Guo (郭司坤) is a PhD Candidate at the University of Virginia working on large language models, parametric knowledge optimization, inference-time learning, graph neural networks, and AI for Science.',
   agendaTitle: 'One research problem, several technical fronts',
   agendaIntro:
     'I work on a single underlying question: how can foundation models make better scientific use of the knowledge they already contain? That question appears in different technical forms—benchmarking research ideation, improving inference-time behavior, grounding scientific hypotheses, evaluating truthfulness, and modeling evolving scientific concepts—but the agenda is consistent.',
