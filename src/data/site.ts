@@ -4,7 +4,7 @@ export const site = {
   fullTitle: 'Sikun Guo (郭司坤)',
   homeTitle: 'Sikun Guo (郭司坤) | PhD Candidate at the University of Virginia',
   description:
-    'Sikun Guo (郭司坤) is a PhD Candidate in Computer Science at the University of Virginia studying reasoning with large language models, in-context learning, knowledge recruitment, and foundation models for scientific discovery.',
+    'Sikun Guo (郭司坤) is a PhD Candidate in Computer Science at the University of Virginia studying reasoning with large language models, in-context learning, inference-time learning, and foundation models for scientific discovery.',
   url: 'https://sikun-skyler-guo.github.io',
   nav: [
     { href: '/', label: 'Home' },
@@ -24,9 +24,9 @@ export const profile = {
   country: 'United States',
   email: 'qkm6sq@virginia.edu',
   tagline:
-    'I study how large language models recruit, refine, and use their internal knowledge for scientific reasoning and discovery.',
+    'I study how large language models reason, refine ideas, and use knowledge for scientific discovery.',
   intro:
-    'I am Sikun Guo (郭司坤), a PhD Candidate in Computer Science at the University of Virginia in the RealAI Lab, advised by Prof. Aidong Zhang. My research studies reasoning with large language models, theories of in-context learning, knowledge recruitment failures, and foundation models for scientific discovery. Recent work includes causal evidence that models can know the clue while missing the answer, curiosity-driven questioning for research ideation, inference-time adversarial and reinforcement learning for idea optimization, truthfulness evaluation for scientific hypotheses, and graph-based biomedical discovery. Outside research, I follow financial markets and trading, play table tennis, sing, and enjoy road trips.',
+    'I am Sikun Guo (郭司坤), a PhD Candidate in Computer Science at the University of Virginia in the RealAI Lab, advised by Prof. Aidong Zhang. My research studies reasoning with large language models, theories of in-context learning, inference-time learning, and foundation models for scientific discovery. Recent work includes curiosity-driven questioning for research ideation, inference-time adversarial and reinforcement learning for idea optimization, truthfulness evaluation for scientific hypotheses, and graph-based biomedical discovery. Outside research, I follow financial markets and trading, play table tennis, sing, and enjoy road trips.',
   advisorName: 'Prof. Aidong Zhang',
   advisorUrl: 'https://www.cs.virginia.edu/~az9eg/website/home.html',
   affiliation: 'RealAI Lab, University of Virginia',
@@ -48,13 +48,12 @@ export const profile = {
   ],
   researchAreas: [
     'Reasoning with large language models',
-    'Knowledge recruitment and in-context learning',
+    'In-context learning and model knowledge use',
     'Inference-time learning for research ideation',
     'Foundation models for scientific discovery',
     'Graph neural networks and structured scientific knowledge',
   ],
   recentWork: [
-    'NeurIPS 2026 under review',
     'KDD 2026',
     'IEEE ICDM 2025 Best Paper Award',
     'Bioinformatics 2025',
@@ -67,16 +66,16 @@ export const profile = {
 
 export const homepage = {
   heroEyebrow:
-    'LLM reasoning · knowledge recruitment · inference-time learning · AI for Science',
+    'LLM reasoning · in-context learning · inference-time learning · AI for Science',
   heroTitle:
-    'Studying how language models recruit knowledge for scientific discovery',
+    'Studying how language models reason and improve scientific discovery',
   heroBody:
-    'My research asks why large language models can appear to know the right clues but still fail to produce reliable scientific answers. I study knowledge recruitment, in-context learning, and inference-time optimization so foundation models can better generate, critique, and refine research ideas and hypotheses. The broader goal is to make AI systems more capable scientific collaborators: grounded, inspectable, and useful in real research workflows.',
+    'My research asks how large language models can reason more reliably in scientific settings. I study in-context learning and inference-time optimization so foundation models can better generate, critique, and refine research ideas and hypotheses. The broader goal is to make AI systems more capable scientific collaborators: grounded, inspectable, and useful in real research workflows.',
   metaDescription:
-    'Sikun Guo (郭司坤) is a PhD Candidate at the University of Virginia working on large language model reasoning, knowledge recruitment, in-context learning, inference-time learning, graph neural networks, and AI for Science.',
+    'Sikun Guo (郭司坤) is a PhD Candidate at the University of Virginia working on large language model reasoning, in-context learning, inference-time learning, graph neural networks, and AI for Science.',
   agendaTitle: 'One research problem, several technical fronts',
   agendaIntro:
-    'I work on a single underlying question: how can foundation models reliably use the knowledge they already contain? That question appears in different forms—causal analysis of knowledge recruitment failures, curiosity-driven ideation, inference-time optimization, truthfulness evaluation, and graph-based scientific modeling—but the agenda is consistent.',
+    'I work on a single underlying question: how can foundation models reason more reliably with the information available to them? That question appears in different forms—curiosity-driven ideation, inference-time optimization, truthfulness evaluation, and graph-based scientific modeling—but the agenda is consistent.',
   visionTitle: 'Long-term direction',
   visionBody:
     'My long-term goal is to help build autonomous AI research systems that make serious research more widely accessible. High-quality research capacity is still concentrated in a relatively small number of institutions and teams. If AI systems can better use learned knowledge, reason more reliably, and interact productively with structured scientific evidence, they can broaden who gets to do meaningful research and at what scale.',
@@ -118,7 +117,7 @@ export const cvData = {
         'Studies foundation models for scientific discovery, including research ideation, hypothesis generation, and scientific reasoning.',
         'Released IdeaBench for benchmarking LLM-based research idea generation.',
         'Developed inference-time adversarial and reinforcement learning approaches for improving ideation quality.',
-        'Proposed curiosity-driven questioning for engine-agnostic research ideation and studied knowledge recruitment failures in LLMs.',
+        'Proposed curiosity-driven questioning for engine-agnostic research ideation and studied how LLMs use knowledge in scientific reasoning.',
       ],
     },
     {

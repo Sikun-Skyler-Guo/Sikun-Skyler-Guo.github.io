@@ -8,12 +8,12 @@ import SectionHeading from '../components/SectionHeading.astro';
   <SectionHeading
     eyebrow="Research"
     title="Research agenda"
-    intro="I study the gap between what foundation models know and what they can reliably use. My current work focuses on reasoning with large language models, theories of in-context learning, knowledge recruitment failures, inference-time learning, and foundation models for scientific discovery. A connected thread studies graph-based scientific structure for biomedical hypothesis generation."
+    intro="I study how foundation models reason, use context, and improve ideas in scientific settings. My current work focuses on reasoning with large language models, theories of in-context learning, inference-time learning, and foundation models for scientific discovery. A connected thread studies graph-based scientific structure for biomedical hypothesis generation."
   />
 
   <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-    <Card compact title="Knowledge recruitment">
-      <p class="text-sm leading-7 text-stone-700">Why can a model know useful clues but still fail to recruit them into the final answer, especially in scientific reasoning tasks?</p>
+    <Card compact title="Model knowledge use">
+      <p class="text-sm leading-7 text-stone-700">How can a model use available evidence, context, and internal knowledge more reliably in scientific reasoning tasks?</p>
     </Card>
     <Card compact title="In-context learning">
       <p class="text-sm leading-7 text-stone-700">What theories and empirical evidence explain when examples, questions, or context help a model activate the right internal knowledge?</p>
@@ -30,10 +30,10 @@ import SectionHeading from '../components/SectionHeading.astro';
     <Card title="How I frame the problem space">
       <div class="space-y-4 text-base leading-8 text-stone-700">
         <p>
-          The main question running through my work is how to make model knowledge usable. In many scientific settings, a model may already encode substantial relevant information, yet still fail to activate, combine, or trust the right pieces when forming an answer or research idea.
+          The main question running through my work is how to make model reasoning more reliable. In many scientific settings, a model must combine context, structured evidence, and learned patterns when forming an answer or research idea.
         </p>
         <p>
-          That perspective pushes me toward both causal analysis and method design: identifying knowledge recruitment failures, designing curiosity-driven questions, and using inference-time adversarial or reinforcement learning to improve the trajectory of generated ideas.
+          That perspective pushes me toward both analysis and method design: designing curiosity-driven questions, and using inference-time adversarial or reinforcement learning to improve the trajectory of generated ideas.
         </p>
         <p>
           I also care about the surrounding infrastructure. Benchmarks, truthfulness evaluation, graph-based scientific representations, and agentic ideation-rating systems make model-generated research easier to inspect and improve instead of treating it as polished prose alone.
@@ -43,7 +43,6 @@ import SectionHeading from '../components/SectionHeading.astro';
 
     <Card title="Current directions" subtitle="Representative threads in the agenda">
       <ul class="space-y-3 text-sm leading-7 text-stone-700">
-        <li class="border-b border-[var(--border)] pb-3">Causal evidence for knowledge recruitment failures in language models.</li>
         <li class="border-b border-[var(--border)] pb-3">Curiosity-driven questioning and engine-agnostic LLM research ideation.</li>
         <li class="border-b border-[var(--border)] pb-3">Inference-time adversarial and reinforcement learning for idea optimization.</li>
         <li class="border-b border-[var(--border)] pb-3">Truthfulness, hallucination, and reliability in model-generated scientific hypotheses.</li>

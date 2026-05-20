@@ -1,10 +1,6 @@
 export const news = [
   {
     date: '2026',
-    title: 'Knowledge recruitment failure manuscript is under review at NeurIPS 2026.',
-  },
-  {
-    date: '2026',
     title: 'Curiosity-Driven Questioning and InfRL extend the research-ideation line at KDD 2026.',
   },
   {

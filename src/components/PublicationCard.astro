@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { paper, featured = false } = Astro.props;
-const metaParts = paper.status === 'Published'
+const metaParts = paper.status === 'Published' || paper.status === 'Accepted'
   ? [paper.tag, String(paper.year)]
   : [paper.status, paper.tag, String(paper.year)];
 ---

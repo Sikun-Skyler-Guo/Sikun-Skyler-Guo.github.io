@@ -29,21 +29,6 @@ export type Publication = {
 
 export const publications: Publication[] = [
   {
-    title: 'Knowing the Clue, Missing the Answer: Causal Evidence for Knowledge Recruitment Failures in Language Models',
-    authors: [
-      { name: 'Sikun Guo', me: true },
-      { name: 'Aidong Zhang' },
-    ],
-    venue: 'Under review at NeurIPS 2026',
-    year: 2026,
-    status: 'Under review',
-    tag: 'Knowledge recruitment',
-    summary:
-      'This manuscript studies a failure mode where language models have access to relevant clues but still do not recruit that knowledge into the final answer. The work connects causal evidence, model knowledge use, and scientific reasoning reliability.',
-    featured: true,
-    group: 'working',
-  },
-  {
     title: 'Curiosity-Driven Questioning for Engine-Agnostic LLM Research Ideation',
     authors: [
       { name: 'Sikun Guo', me: true },

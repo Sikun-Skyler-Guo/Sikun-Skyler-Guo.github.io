@@ -60,8 +60,8 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
         intro={homepage.agendaIntro}
       />
       <div class="grid gap-5 md:grid-cols-2">
-        <Card compact title="Knowledge recruitment">
-          <p class="text-sm leading-7 text-stone-700">Why do language models sometimes know the clue but still miss the answer, and how can we make that knowledge usable?</p>
+        <Card compact title="Model knowledge use">
+          <p class="text-sm leading-7 text-stone-700">How can language models use available information more reliably when generating scientific ideas, hypotheses, and answers?</p>
         </Card>
         <Card compact title="In-context learning">
           <p class="text-sm leading-7 text-stone-700">What makes examples, questions, and context activate better scientific reasoning from the same underlying model?</p>
@@ -82,7 +82,7 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
   </section>
 
   <section class="mt-22">
-    <SectionHeading eyebrow="Selected publications" title="Recent papers" intro="A representative slice of the research program, spanning knowledge recruitment, curiosity-driven ideation, inference-time learning, scientific reasoning evaluation, and graph-based discovery." />
+    <SectionHeading eyebrow="Selected publications" title="Recent papers" intro="A representative slice of the research program, spanning curiosity-driven ideation, inference-time learning, scientific reasoning evaluation, and graph-based discovery." />
     <div class="space-y-5">
       {featuredPublications.map((paper) => (
         <PublicationCard paper={paper} featured />
