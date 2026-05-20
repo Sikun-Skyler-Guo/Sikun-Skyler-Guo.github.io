@@ -1,11 +1,19 @@
 export const news = [
   {
     date: '2026',
-    title: 'Two KDD 2026 submissions extend the research-ideation line with curiosity-driven questioning and inference-time reinforcement learning.',
+    title: 'Knowledge recruitment failure manuscript is under review at NeurIPS 2026.',
+  },
+  {
+    date: '2026',
+    title: 'Curiosity-Driven Questioning and InfRL extend the research-ideation line at KDD 2026.',
+  },
+  {
+    date: '2026',
+    title: 'Serving as Teaching Assistant for Artificial Intelligence (CS4710) at UVA.',
   },
   {
     date: '2025',
-    title: 'Co-authored HyHG received the ICDM 2025 Best Student Paper Award.',
+    title: 'Co-authored HyHG received the ICDM 2025 Best Paper Award.',
   },
   {
     date: '2025',
@@ -13,6 +21,6 @@ export const news = [
   },
   {
     date: '2025',
-    title: 'IdeaBench and related work on research ideation appeared at KDD and EMNLP.',
+    title: 'IdeaBench, InfAL, and hypothesis-generation work appeared at KDD, EMNLP, IJCAI, SDM, and Bioinformatics venues.',
   },
 ];

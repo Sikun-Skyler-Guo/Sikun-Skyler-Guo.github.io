@@ -9,7 +9,7 @@ import { cvData, profile } from '../data/site';
   <SectionHeading
     eyebrow="CV"
     title="Curriculum vitae snapshot"
-    intro="A concise web version of the current resume, with a downloadable PDF for formal use."
+    intro="A concise web version of the current CV, with the downloadable PDF as the formal source of record."
   />
 
   <div class="mb-8 flex flex-wrap gap-3">
@@ -25,6 +25,7 @@ import { cvData, profile } from '../data/site';
         <p><span class="font-medium text-stone-900">Role:</span> {profile.role}</p>
         <p><span class="font-medium text-stone-900">Location:</span> {profile.location}</p>
         <p class="sm:col-span-2"><span class="font-medium text-stone-900">Advisor:</span> <a href={profile.advisorUrl} target="_blank" rel="noreferrer" class="underline decoration-stone-300 underline-offset-4 hover:decoration-[color:var(--accent)] hover:text-[color:var(--accent-strong)]">{profile.advisorName}</a></p>
+        <p class="sm:col-span-2 text-stone-600">The PDF CV contains the formal, complete contact block; this public page keeps the HTML contact surface focused on email and academic profiles.</p>
       </div>
     </Card>
 
@@ -61,6 +62,23 @@ import { cvData, profile } from '../data/site';
         ))}
       </div>
     </Card>
+
+    <section class="grid gap-6 md:grid-cols-2">
+      <Card title="Teaching">
+        <ul class="list-disc space-y-2 pl-5 text-sm leading-7 text-stone-700">
+          {cvData.teaching.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </Card>
+      <Card title="Patent">
+        <ul class="list-disc space-y-2 pl-5 text-sm leading-7 text-stone-700">
+          {cvData.patents.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </Card>
+    </section>
 
     <section class="grid gap-6 md:grid-cols-2">
       <Card title="Awards and honors">

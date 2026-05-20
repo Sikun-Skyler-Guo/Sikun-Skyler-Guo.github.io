@@ -8,21 +8,21 @@ import SectionHeading from '../components/SectionHeading.astro';
   <SectionHeading
     eyebrow="Research"
     title="Research agenda"
-    intro="I study the gap between what foundation models appear to know and what they can reliably use. Large language models absorb substantial knowledge during training, but turning that latent knowledge into grounded scientific reasoning remains difficult. My work focuses on parametric knowledge optimization, inference-time learning, graph-based scientific modeling, and AI for Science."
+    intro="I study the gap between what foundation models know and what they can reliably use. My current work focuses on reasoning with large language models, theories of in-context learning, knowledge recruitment failures, inference-time learning, and foundation models for scientific discovery. A connected thread studies graph-based scientific structure for biomedical hypothesis generation."
   />
 
   <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-    <Card compact title="Parametric knowledge optimization">
-      <p class="text-sm leading-7 text-stone-700">How can models better activate and refine the knowledge already encoded in their parameters for scientific reasoning and discovery?</p>
+    <Card compact title="Knowledge recruitment">
+      <p class="text-sm leading-7 text-stone-700">Why can a model know useful clues but still fail to recruit them into the final answer, especially in scientific reasoning tasks?</p>
+    </Card>
+    <Card compact title="In-context learning">
+      <p class="text-sm leading-7 text-stone-700">What theories and empirical evidence explain when examples, questions, or context help a model activate the right internal knowledge?</p>
     </Card>
     <Card compact title="Inference-time learning">
-      <p class="text-sm leading-7 text-stone-700">What kinds of optimization, search, or adversarial procedures can improve reasoning and ideation quality at test time?</p>
-    </Card>
-    <Card compact title="Graph neural networks and structure">
-      <p class="text-sm leading-7 text-stone-700">How should structured scientific relations, graph evolution, and concept dynamics be represented for discovery tasks?</p>
+      <p class="text-sm leading-7 text-stone-700">How can optimization, adversarial feedback, or reinforcement learning improve ideation and reasoning quality at test time?</p>
     </Card>
     <Card compact title="AI for Science">
-      <p class="text-sm leading-7 text-stone-700">How can models generate, critique, and evaluate scientific ideas and hypotheses in ways that are actually useful to researchers?</p>
+      <p class="text-sm leading-7 text-stone-700">How can models generate, critique, evaluate, and improve research ideas and scientific hypotheses in ways that are useful to researchers?</p>
     </Card>
   </div>
 
@@ -30,23 +30,24 @@ import SectionHeading from '../components/SectionHeading.astro';
     <Card title="How I frame the problem space">
       <div class="space-y-4 text-base leading-8 text-stone-700">
         <p>
-          The main question running through my work is how to make parametric knowledge more usable. In many scientific settings, a model may already contain substantial relevant knowledge, yet still fail to deploy it when forming, refining, or evaluating an idea.
+          The main question running through my work is how to make model knowledge usable. In many scientific settings, a model may already encode substantial relevant information, yet still fail to activate, combine, or trust the right pieces when forming an answer or research idea.
         </p>
         <p>
-          That perspective pushes me toward method design, but also toward the surrounding infrastructure: benchmarks, inference-time control, truthfulness evaluation, and workflow tools that make model-generated scientific ideas easier to inspect and improve.
+          That perspective pushes me toward both causal analysis and method design: identifying knowledge recruitment failures, designing curiosity-driven questions, and using inference-time adversarial or reinforcement learning to improve the trajectory of generated ideas.
         </p>
         <p>
-          In the long run, I am interested in autonomous AI research systems. In the short run, I care about sharper questions: what a model knows, how well it can use that knowledge, and what kinds of system design make that knowledge more useful for real scientific workflows.
+          I also care about the surrounding infrastructure. Benchmarks, truthfulness evaluation, graph-based scientific representations, and agentic ideation-rating systems make model-generated research easier to inspect and improve instead of treating it as polished prose alone.
         </p>
       </div>
     </Card>
 
     <Card title="Current directions" subtitle="Representative threads in the agenda">
       <ul class="space-y-3 text-sm leading-7 text-stone-700">
-        <li class="border-b border-[var(--border)] pb-3">Research ideation and hypothesis generation under explicit evaluation.</li>
-        <li class="border-b border-[var(--border)] pb-3">Inference-time optimization for improving scientific reasoning and idea quality.</li>
-        <li class="border-b border-[var(--border)] pb-3">Graph-based modeling of evolving scientific concepts and relationships.</li>
-        <li class="pb-1">Truthfulness, hallucination analysis, and reliability in model-generated scientific claims.</li>
+        <li class="border-b border-[var(--border)] pb-3">Causal evidence for knowledge recruitment failures in language models.</li>
+        <li class="border-b border-[var(--border)] pb-3">Curiosity-driven questioning and engine-agnostic LLM research ideation.</li>
+        <li class="border-b border-[var(--border)] pb-3">Inference-time adversarial and reinforcement learning for idea optimization.</li>
+        <li class="border-b border-[var(--border)] pb-3">Truthfulness, hallucination, and reliability in model-generated scientific hypotheses.</li>
+        <li class="pb-1">Temporal, semantic, and hypergraph modeling of evolving biomedical concepts.</li>
       </ul>
     </Card>
   </section>

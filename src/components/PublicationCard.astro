@@ -7,9 +7,9 @@ interface Props {
 }
 
 const { paper, featured = false } = Astro.props;
-const metaParts = paper.group === 'working'
-  ? [paper.status, paper.tag, String(paper.year)]
-  : [paper.tag, String(paper.year)];
+const metaParts = paper.status === 'Published'
+  ? [paper.tag, String(paper.year)]
+  : [paper.status, paper.tag, String(paper.year)];
 ---
 
 <article class:list={[

@@ -60,17 +60,17 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
         intro={homepage.agendaIntro}
       />
       <div class="grid gap-5 md:grid-cols-2">
-        <Card compact title="Parametric knowledge optimization">
-          <p class="text-sm leading-7 text-stone-700">How can large language models make better scientific use of the knowledge already encoded in their parameters?</p>
+        <Card compact title="Knowledge recruitment">
+          <p class="text-sm leading-7 text-stone-700">Why do language models sometimes know the clue but still miss the answer, and how can we make that knowledge usable?</p>
+        </Card>
+        <Card compact title="In-context learning">
+          <p class="text-sm leading-7 text-stone-700">What makes examples, questions, and context activate better scientific reasoning from the same underlying model?</p>
         </Card>
         <Card compact title="Inference-time learning">
-          <p class="text-sm leading-7 text-stone-700">How far can test-time optimization improve ideation, critique, and reasoning quality without changing base-model weights?</p>
+          <p class="text-sm leading-7 text-stone-700">How far can adversarial feedback or reinforcement learning improve ideation, critique, and reasoning quality at test time?</p>
         </Card>
-        <Card compact title="Structured scientific knowledge">
-          <p class="text-sm leading-7 text-stone-700">How should graph structure, evolving concepts, and scientific relations be represented so model outputs become more grounded and useful?</p>
-        </Card>
-        <Card compact title="Evaluation for scientific reasoning">
-          <p class="text-sm leading-7 text-stone-700">What makes model-generated ideas, hypotheses, and scientific claims actually trustworthy, checkable, and worth a researcher’s time?</p>
+        <Card compact title="Evaluation for scientific discovery">
+          <p class="text-sm leading-7 text-stone-700">What makes model-generated ideas, hypotheses, and scientific claims trustworthy, checkable, and worth a researcher’s time?</p>
         </Card>
       </div>
     </div>
@@ -82,7 +82,7 @@ const industryExperience = cvData.experience.find((item) => item.org === 'Autosc
   </section>
 
   <section class="mt-22">
-    <SectionHeading eyebrow="Selected publications" title="Recent papers" intro="A representative slice of the research program, spanning benchmark design, inference-time learning, scientific reasoning evaluation, and graph-based discovery." />
+    <SectionHeading eyebrow="Selected publications" title="Recent papers" intro="A representative slice of the research program, spanning knowledge recruitment, curiosity-driven ideation, inference-time learning, scientific reasoning evaluation, and graph-based discovery." />
     <div class="space-y-5">
       {featuredPublications.map((paper) => (
         <PublicationCard paper={paper} featured />

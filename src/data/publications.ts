@@ -8,12 +8,14 @@ export type PublicationLink = {
   href: string;
 };
 
+export type PublicationStatus = 'Published' | 'Accepted' | 'Under review' | 'Preprint';
+
 export type Publication = {
   title: string;
   authors: PublicationAuthor[];
   venue: string;
   year: number;
-  status: 'Published' | 'Under review';
+  status: PublicationStatus;
   tag: string;
   summary: string;
   links?: PublicationLink[];
@@ -26,6 +28,138 @@ export type Publication = {
 };
 
 export const publications: Publication[] = [
+  {
+    title: 'Knowing the Clue, Missing the Answer: Causal Evidence for Knowledge Recruitment Failures in Language Models',
+    authors: [
+      { name: 'Sikun Guo', me: true },
+      { name: 'Aidong Zhang' },
+    ],
+    venue: 'Under review at NeurIPS 2026',
+    year: 2026,
+    status: 'Under review',
+    tag: 'Knowledge recruitment',
+    summary:
+      'This manuscript studies a failure mode where language models have access to relevant clues but still do not recruit that knowledge into the final answer. The work connects causal evidence, model knowledge use, and scientific reasoning reliability.',
+    featured: true,
+    group: 'working',
+  },
+  {
+    title: 'Curiosity-Driven Questioning for Engine-Agnostic LLM Research Ideation',
+    authors: [
+      { name: 'Sikun Guo', me: true },
+      { name: 'Di Wang' },
+      { name: 'Xiaohan Fan' },
+      { name: 'Albert Huang' },
+      { name: 'Aidong Zhang' },
+    ],
+    venue: 'KDD 2026',
+    year: 2026,
+    status: 'Accepted',
+    tag: 'Ideation methods',
+    summary:
+      'Studies whether curiosity-oriented questioning can make research ideation with language models more exploratory, engine-agnostic, and practically useful. The method emphasizes question generation, filtering, and clarity scoring before ideas are handed to downstream ideation engines.',
+    featured: true,
+    group: 'published',
+    figureLabel: 'Curiosity-driven questioning loop with evidence packets, two-stage scoring, and top-k question selection',
+    figureSrc: '/cdq-figure.png',
+    figureAlt: 'Curiosity-driven questioning pipeline with evidence packets, question generation, filtering through gap and disagreement, clarity scoring, and top-k question selection for ideation engines.',
+  },
+  {
+    title: 'InfRL: Inference-time Reinforcement Learning for Research Idea Optimization',
+    authors: [
+      { name: 'Sikun Guo', me: true },
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Jiuqi Wang' },
+      { name: 'Albert Huang' },
+      { name: 'Stefan Bekiranov' },
+      { name: 'Shangtong Zhang' },
+      { name: 'Aidong Zhang' },
+    ],
+    venue: 'KDD 2026',
+    year: 2026,
+    status: 'Accepted',
+    tag: 'Inference-time learning',
+    summary:
+      'Explores inference-time reinforcement learning as a way to optimize the quality of model-generated research ideas without relying only on larger base models. The project frames idea improvement as a trajectory with actions, rewards, and iterative policy updates at test time.',
+    featured: true,
+    group: 'published',
+    figureLabel: 'Inference-time reinforcement learning trajectory for iterative research idea optimization',
+    figureSrc: '/infrl-figure.png',
+    figureAlt: 'InfRL figure showing idea optimization trajectory, state transition agent, policy update agent, and reward agent across multiple iterations.',
+  },
+  {
+    title: 'HyHG: A Temporal Hypergraph Contrastive Learning Framework for Biomedical Hypothesis Generation',
+    authors: [
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Sikun Guo', me: true },
+      { name: 'Nathan C. Sheffield' },
+      { name: 'Aidong Zhang' },
+      { name: 'Kishlay Jha' },
+    ],
+    venue: 'IEEE ICDM 2025',
+    year: 2025,
+    status: 'Published',
+    tag: 'Biomedical hypothesis generation',
+    summary:
+      'HyHG models biomedical hypothesis generation with a temporal hypergraph view of evolving scientific concepts, allowing the system to capture higher-order relations that ordinary pairwise graphs miss. The paper received the ICDM 2025 Best Paper Award, making it a particularly visible result in the structured-scientific-discovery line of work.',
+    links: [
+      { label: 'Paper', href: 'https://ieeexplore.ieee.org/document/11391984/' },
+      { label: 'Award', href: 'https://engineering.virginia.edu/department/computer-science/blogs/best-student-paper-award-given-icdm-2025' },
+    ],
+    featured: true,
+    award: 'ICDM 2025 Best Paper Award',
+    group: 'published',
+  },
+  {
+    title: 'ConceptDrift: Leveraging Spatial, Temporal and Semantic Evolution of Biomedical Concepts for Hypothesis Generation',
+    authors: [
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Alireza Jafari' },
+      { name: 'Sikun Guo', me: true },
+      { name: 'Sneha Srinivasan' },
+      { name: 'Nathan C. Sheffield' },
+      { name: 'Aidong Zhang' },
+      { name: 'Kishlay Jha' },
+    ],
+    venue: 'Bioinformatics 2025',
+    year: 2025,
+    status: 'Published',
+    tag: 'Graph-based scientific modeling',
+    summary:
+      'ConceptDrift models biomedical hypothesis generation through the spatial, temporal, and semantic evolution of concepts. It represents a more structured scientific-modeling direction in the broader agenda, showing how graph-based views of evolving knowledge can support discovery.',
+    links: [
+      { label: 'Paper', href: 'https://academic.oup.com/bioinformatics/article/41/11/btaf563/8305176' },
+      { label: 'Code', href: 'https://github.com/amir-hassan25/ConceptDrift' },
+    ],
+    group: 'published',
+    figureLabel: 'Spatial, temporal, and semantic concept evolution for biomedical hypothesis generation',
+    figureSrc: '/conceptdrift-figure.png',
+    figureAlt: 'ConceptDrift figure showing semantic evolution over time, temporal semantic contextualization, spatial evolution, and hypothesis generation.',
+  },
+  {
+    title: 'InfAL: Inference Time Adversarial Learning for Improving Research Ideation',
+    authors: [
+      { name: 'Sikun Guo', me: true },
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Peng Wang' },
+      { name: 'Albert Huang' },
+      { name: 'Aidong Zhang' },
+    ],
+    venue: 'Findings of EMNLP 2025',
+    year: 2025,
+    status: 'Published',
+    tag: 'Inference-time learning',
+    summary:
+      'InfAL studies how adversarial learning at inference time can improve the quality of model-generated research ideas without changing the base model weights. The paper pushes research ideation beyond prompt engineering toward explicitly optimized test-time behavior.',
+    links: [
+      { label: 'Paper', href: 'https://aclanthology.org/2025.findings-emnlp.667/' },
+    ],
+    featured: true,
+    group: 'published',
+    figureLabel: 'Inference-time adversarial learning loop for research ideation refinement',
+    figureSrc: '/infal-figure.png',
+    figureAlt: 'InfAL pipeline showing initial idea generation followed by iterative critique, revision, and discriminator-guided improvement across multiple steps.',
+  },
   {
     title: 'IdeaBench: Benchmarking Large Language Models for Research Idea Generation',
     authors: [
@@ -55,31 +189,7 @@ export const publications: Publication[] = [
     figureAlt: 'IdeaBench pipeline showing dataset construction from Semantic Scholar, idea generation with research agents, and evaluation by quality ranking.',
   },
   {
-    title: 'InfAL: Inference Time Adversarial Learning for Improving Research Ideation',
-    authors: [
-      { name: 'Sikun Guo', me: true },
-      { name: 'Amir Hassan Shariatmadari' },
-      { name: 'Peng Wang' },
-      { name: 'Albert Huang' },
-      { name: 'Aidong Zhang' },
-    ],
-    venue: 'Findings of EMNLP 2025',
-    year: 2025,
-    status: 'Published',
-    tag: 'Inference-time learning',
-    summary:
-      'InfAL studies how adversarial learning at inference time can improve the quality of model-generated research ideas without changing the base model weights. The paper pushes research ideation beyond prompt engineering toward explicitly optimized test-time behavior.',
-    links: [
-      { label: 'Paper', href: 'https://aclanthology.org/2025.findings-emnlp.667/' },
-    ],
-    featured: true,
-    group: 'published',
-    figureLabel: 'Inference-time adversarial learning loop for research ideation refinement',
-    figureSrc: '/infal-figure.png',
-    figureAlt: 'InfAL pipeline showing initial idea generation followed by iterative critique, revision, and discriminator-guided improvement across multiple steps.',
-  },
-  {
-    title: 'Toward Reliable Scientific Hypothesis Generation: Evaluating Truthfulness and Hallucination in Large Language Models',
+    title: 'Toward Reliable Biomedical Hypothesis Generation: Evaluating Truthfulness and Hallucination in Large Language Models',
     authors: [
       { name: 'Guangzhi Xiong' },
       { name: 'Eric Xie' },
@@ -95,65 +205,14 @@ export const publications: Publication[] = [
     status: 'Published',
     tag: 'Scientific reasoning evaluation',
     summary:
-      'This paper focuses on the reliability of model-generated scientific hypotheses, with particular attention to truthfulness and hallucination. It strengthens the agenda by asking not only whether models can generate hypotheses, but whether those hypotheses remain grounded and trustworthy.',
+      'This paper focuses on the reliability of model-generated biomedical hypotheses, with particular attention to truthfulness and hallucination. It strengthens the agenda by asking not only whether models can generate hypotheses, but whether those hypotheses remain grounded and trustworthy.',
     links: [
       { label: 'Paper', href: 'https://www.ijcai.org/proceedings/2025/0873' },
     ],
-    featured: true,
     group: 'published',
     figureLabel: 'Dataset construction, task formulation, and truthfulness evaluation pipeline for scientific hypothesis generation',
     figureSrc: '/truthhypo-figure.png',
     figureAlt: 'Pipeline for reliable scientific hypothesis generation showing dataset construction, hypothesis generation task formulation, and truthfulness evaluation.',
-  },
-  {
-    title: 'ConceptDrift: Leveraging Spatial, Temporal and Semantic Evolution of Biomedical Concepts for Hypothesis Generation',
-    authors: [
-      { name: 'Amir Hassan Shariatmadari' },
-      { name: 'Alireza Jafari' },
-      { name: 'Sikun Guo', me: true },
-      { name: 'Sneha Srinivasan' },
-      { name: 'Nathan C. Sheffield' },
-      { name: 'Aidong Zhang' },
-      { name: 'Kishlay Jha' },
-    ],
-    venue: 'Bioinformatics 2025',
-    year: 2025,
-    status: 'Published',
-    tag: 'Graph-based scientific modeling',
-    summary:
-      'ConceptDrift models biomedical hypothesis generation through the spatial, temporal, and semantic evolution of concepts. It represents a more structured scientific-modeling direction in the broader agenda, showing how graph-based views of evolving knowledge can support discovery.',
-    links: [
-      { label: 'Paper', href: 'https://academic.oup.com/bioinformatics/article/41/11/btaf563/8305176' },
-      { label: 'Code', href: 'https://github.com/amir-hassan25/ConceptDrift' },
-    ],
-    featured: true,
-    group: 'published',
-    figureLabel: 'Spatial, temporal, and semantic concept evolution for biomedical hypothesis generation',
-    figureSrc: '/conceptdrift-figure.png',
-    figureAlt: 'ConceptDrift figure showing semantic evolution over time, temporal semantic contextualization, spatial evolution, and hypothesis generation.',
-  },
-  {
-    title: 'HyHG: A Temporal Hypergraph Contrastive Learning Framework for Biomedical Hypothesis Generation',
-    authors: [
-      { name: 'Amir Hassan Shariatmadari' },
-      { name: 'Sikun Guo', me: true },
-      { name: 'Nathan C. Sheffield' },
-      { name: 'Aidong Zhang' },
-      { name: 'Kishlay Jha' },
-    ],
-    venue: 'IEEE ICDM 2025',
-    year: 2025,
-    status: 'Published',
-    tag: 'Biomedical hypothesis generation',
-    summary:
-      'HyHG models biomedical hypothesis generation with a temporal hypergraph view of evolving scientific concepts, allowing the system to capture higher-order relations that ordinary pairwise graphs miss. The paper received the ICDM 2025 Best Student Paper Award, making it a particularly visible result in the structured-scientific-discovery line of work.',
-    links: [
-      { label: 'Paper', href: 'https://ieeexplore.ieee.org/document/11391984/' },
-      { label: 'Award', href: 'https://engineering.virginia.edu/department/computer-science/blogs/best-student-paper-award-given-icdm-2025' },
-    ],
-    featured: true,
-    award: 'ICDM 2025 Best Student Paper Award',
-    group: 'published',
   },
   {
     title: 'Optimizing External and Internal Knowledge of Foundation Models for Scientific Discovery',
@@ -173,6 +232,25 @@ export const publications: Publication[] = [
     figureLabel: 'External and internal knowledge optimization framework for scientific discovery',
     figureSrc: '/sdm-figure.png',
     figureAlt: 'Framework showing external knowledge sources, internal in-context learning, and foundation models for scientific discovery.',
+  },
+  {
+    title: 'Improving Scientific Hypothesis Generation with Knowledge Grounded Large Language Models',
+    authors: [
+      { name: 'Guangzhi Xiong' },
+      { name: 'Eric Xie' },
+      { name: 'Amir Hassan Shariatmadari' },
+      { name: 'Sikun Guo', me: true },
+      { name: 'Stefan Bekiranov' },
+      { name: 'Aidong Zhang' },
+    ],
+    venue: 'arXiv preprint',
+    year: 2024,
+    status: 'Preprint',
+    tag: 'Knowledge grounding',
+    summary:
+      'This preprint explores how knowledge grounding can improve scientific hypothesis generation with large language models, complementing later work on truthfulness, hallucination, and reliability in biomedical hypothesis generation.',
+    links: [{ label: 'arXiv', href: 'https://arxiv.org/abs/2411.02382' }],
+    group: 'working',
   },
   {
     title: 'Embracing Foundation Models for Advancing Scientific Discovery',
@@ -224,46 +302,15 @@ export const publications: Publication[] = [
     figureAlt: 'Survey taxonomy for graph neural networks in IoT, covering graph modeling, node representation, edge connection, and representative work.',
   },
   {
-    title: 'Curiosity-Driven Questioning for Engine-Agnostic LLM Research Ideation',
-    authors: [
-      { name: 'Sikun Guo', me: true },
-      { name: 'Di Wang' },
-      { name: 'Xiaohan Fan' },
-      { name: 'Albert Huang' },
-      { name: 'Aidong Zhang' },
-    ],
-    venue: 'Under review at KDD 2026',
-    year: 2026,
-    status: 'Under review',
-    tag: 'Ideation methods',
+    title: 'A Survey on GAT-like Graph Neural Networks',
+    authors: [{ name: 'Sikun Guo', me: true }],
+    venue: 'CISCE 2020',
+    year: 2020,
+    status: 'Published',
+    tag: 'Survey',
     summary:
-      'Studies whether curiosity-oriented questioning can make research ideation with language models more exploratory, engine-agnostic, and practically useful. The method emphasizes question generation, filtering, and clarity scoring before ideas are handed to downstream ideation engines.',
-    group: 'working',
-    figureLabel: 'Curiosity-driven questioning loop with evidence packets, two-stage scoring, and top-k question selection',
-    figureSrc: '/cdq-figure.png',
-    figureAlt: 'Curiosity-driven questioning pipeline with evidence packets, question generation, filtering through gap and disagreement, clarity scoring, and top-k question selection for ideation engines.',
-  },
-  {
-    title: 'InfRL: Inference-time Reinforcement Learning for Research Idea Optimization',
-    authors: [
-      { name: 'Sikun Guo', me: true },
-      { name: 'Amir Hassan Shariatmadari' },
-      { name: 'Jiuqi Wang' },
-      { name: 'Albert Huang' },
-      { name: 'Stefan Bekiranov' },
-      { name: 'Shangtong Zhang' },
-      { name: 'Aidong Zhang' },
-    ],
-    venue: 'Under review at KDD 2026',
-    year: 2026,
-    status: 'Under review',
-    tag: 'Inference-time learning',
-    summary:
-      'Explores inference-time reinforcement learning as a way to optimize the quality of model-generated research ideas without relying only on larger base models. The project frames idea improvement as a trajectory with actions, rewards, and iterative policy updates at test time.',
-    group: 'working',
-    figureLabel: 'Inference-time reinforcement learning trajectory for iterative research idea optimization',
-    figureSrc: '/infrl-figure.png',
-    figureAlt: 'InfRL figure showing idea optimization trajectory, state transition agent, policy update agent, and reward agent across multiple iterations.',
+      'An early survey on graph attention network-style methods, reflecting the graph-learning thread that preceded later work on robust GNNs and structured scientific knowledge.',
+    group: 'published',
   },
 ];
 
