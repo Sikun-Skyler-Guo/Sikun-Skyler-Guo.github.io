@@ -43,6 +43,10 @@ export const publications: Publication[] = [
     tag: 'Ideation methods',
     summary:
       'Studies whether curiosity-oriented questioning can make research ideation with language models more exploratory, engine-agnostic, and practically useful. The method emphasizes question generation, filtering, and clarity scoring before ideas are handed to downstream ideation engines.',
+    links: [
+      { label: 'Full version', href: 'https://github.com/Sikun-Skyler-Guo/CDQ/blob/main/paper/CDQ_full_version.pdf' },
+      { label: 'Code', href: 'https://github.com/Sikun-Skyler-Guo/CDQ' },
+    ],
     featured: true,
     group: 'published',
     figureLabel: 'Curiosity-driven questioning loop with evidence packets, two-stage scoring, and top-k question selection',
