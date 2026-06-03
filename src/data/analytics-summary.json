@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-06-03T11:22:27.287Z",
+  "generatedAt": "2026-06-03T17:17:22.519Z",
   "rangeDays": 30,
   "siteUrl": "https://sikun-skyler-guo.github.io",
   "dashboardUrl": "https://sikunskylerguo.goatcounter.com/",
+  "locationStatsPage": "locations",
   "topLocations": [
     {
       "name": "United States"
