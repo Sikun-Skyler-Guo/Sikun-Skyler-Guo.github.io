@@ -1,17 +1,15 @@
 {
-  "generatedAt": "2026-09-13T20:50:12.237Z",
+  "generatedAt": "2026-09-14T04:56:52.237Z",
   "rangeDays": 30,
   "siteUrl": "https://sikun-skyler-guo.github.io",
   "dashboardUrl": "https://sikunskylerguo.goatcounter.com/",
+  "locationStatsPage": "locations",
   "topLocations": [
     {
       "name": "United States"
     },
     {
       "name": "India"
-    },
-    {
-      "name": "Australia"
     },
     {
       "name": "Macao"
