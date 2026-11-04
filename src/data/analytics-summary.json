@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T06:22:08.141Z",
+  "generatedAt": "2026-11-04T19:45:03.252Z",
   "rangeDays": 30,
   "siteUrl": "https://sikun-skyler-guo.github.io",
   "dashboardUrl": "https://sikunskylerguo.goatcounter.com/",
@@ -13,6 +13,9 @@
     },
     {
       "name": "Hong Kong"
+    },
+    {
+      "name": "Taiwan"
     },
     {
       "name": "Germany"
