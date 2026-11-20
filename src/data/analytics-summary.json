@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-11-19T20:37:10.749Z",
+  "generatedAt": "2026-11-20T07:15:25.663Z",
   "rangeDays": 30,
   "siteUrl": "https://sikun-skyler-guo.github.io",
   "dashboardUrl": "https://sikunskylerguo.goatcounter.com/",
+  "locationStatsPage": "locations",
   "topLocations": [
     {
       "name": "United States"
@@ -12,9 +13,6 @@
     },
     {
       "name": "Hong Kong"
-    },
-    {
-      "name": "India"
     },
     {
       "name": "Taiwan"
